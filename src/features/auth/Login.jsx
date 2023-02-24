@@ -1,65 +1,113 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setCredentials } from './authSlice'
+import { useLoginMutation } from './authApiSlice'
+import { useFormik } from 'formik'
+import { userLoginSchema } from '../../config/validationSchemas'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const [loginMutaion, { isLoading, isSuccess, isError, error }] =
+    useLoginMutation()
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: userLoginSchema,
+    onSubmit: async (values, action) => {
+      try {
+        // we used unwrap because we dont want to use isError from rtk query
+        const { accessToken } = await loginMutaion(values).unwrap()
+        dispatch(setCredentials({ accessToken }))
+        action.resetForm()
+        navigate('/dash')
+      } catch (err) {
+        if (!err.status) {
+          setErrorMessage('No Server Response')
+        } else if (err.status === 400) {
+          setErrorMessage('Missing Username or Password')
+        } else if (err.status === 401) {
+          setErrorMessage('Unauthorized')
+        } else {
+          setErrorMessage(err.data?.message)
+        }
+      }
+    },
+  })
+
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     dispatch('/dash')
+  //   }
+  // }, [dispatch, isSuccess])
+
   return (
-    <section className='bg-gray-900'>
-      <div className='flex flex-col justify-center items-center px-6 py-8 mx-auto h-screen lg:py-0'>
+    <section className='bg-gray-500 '>
+      <div className='flex flex-col justify-center items-center px-6 py-8 mx-auto h-screen'>
         {/* Title */}
-        <a
-          href='#'
-          className='flex items-center mb-6 text-2xl font-semibold text-white'
-        >
-          <img
-            className='mr-2 w-8 h-8'
-            src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg'
-            alt='logo'
-          />
-          Flowbite
-        </a>
+        {/* <h1 className='flex items-center mb-6 text-2xl'>FYP</h1> */}
+        {errorMessage && <p aria-live='assertive'>{errorMessage}</p>}
+        {isError && <p aria-live='assertive'>{error.data?.message}</p>}
         {/* Form container*/}
-        <div className='w-full bg-gray-800 rounded border-gray-700 shadow sm:max-w-md xl:p-0'>
+        <div className='w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-lg sm:max-w-md'>
           <div className='p-6 space-y-4 sm:p-8 md:space-y-6'>
-            <h1 className='text-xl font-bold tracking-tight leading-tight text-white md:text-2xl'>
-              Create account
-            </h1>
+            <h2 className='text-xl font-bold md:text-2xl'>Create account</h2>
             {/* Form */}
-            <form className='space-y-4 md:space-y-6'>
+            <form
+              onSubmit={formik.handleSubmit}
+              className='space-y-4 md:space-y-6'
+            >
               <div>
                 <label
                   htmlFor='email'
-                  className='block mb-2 text-sm font-medium text-white'
+                  className='block mb-2 text-sm font-medium'
                 >
                   Your email
                 </label>
                 <input
-                  type='email'
-                  name='email'
                   id='email'
-                  className=' sm:text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500'
+                  type='email'
+                  {...formik.getFieldProps('email')}
+                  className=' sm:text-sm rounded-lg  block w-full p-2.5 bg-gray-50 border border-gray-300 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 '
                   placeholder='name@email.com'
                 />
+                {formik.touched.email && formik.errors.email ? (
+                  <p className='text-red-600'>{formik.errors.email}</p>
+                ) : null}
               </div>
+
               <div>
                 <label
                   htmlFor='password'
-                  className='block mb-2 text-sm font-medium text-white'
+                  className='block mb-2 text-sm font-medium'
                 >
                   Password
                 </label>
                 <input
-                  type='password'
-                  name='password'
                   id='password'
-                  className=' sm:text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500'
+                  type='password'
+                  {...formik.getFieldProps('password')}
+                  className=' sm:text-sm rounded-lg  block w-full p-2.5 bg-gray-50 border border-gray-300 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500'
                   placeholder='******'
                 />
+                {formik.touched.password && formik.errors.password ? (
+                  <p className='text-red-600'>{formik.errors.password}</p>
+                ) : null}
               </div>
+
               {/* Button */}
               <button
                 type='submit'
-                className='w-full text-white  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800'
+                className='w-full  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 text-white'
               >
-                Create an account
+                Login
               </button>
             </form>
           </div>

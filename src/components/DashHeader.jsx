@@ -1,8 +1,26 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useSendLogoutMutation } from '../features/auth/authApiSlice'
 
 const DashHeader = () => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
   const [open, setOpen] = useState(false)
+
+  const [sendLogout, { isLoading, isSuccess, isError, error }] =
+    useSendLogoutMutation()
+
+  useEffect(() => {
+    if (isSuccess) navigate('/')
+  }, [isSuccess, navigate])
+
+  const logoutHandler = () => sendLogout()
+
+  if (isLoading) return <p>Logging Out...</p>
+
+  if (isError) return <p>Error: {error.data?.message}</p>
+
   return (
     <nav className='container relative p-6 mx-auto font-mono'>
       <div className='flex justify-between items-center'>
@@ -11,8 +29,7 @@ const DashHeader = () => {
         {/* Menu Items */}
         <div className='hidden space-x-6 md:flex'>
           <Link to={'/dash'}>Dashboard</Link>
-          <Link to={'/dash'}>Dashboard</Link>
-          <Link to={'/dash'}>Dashboard</Link>
+          <Link onClick={logoutHandler}>Logout</Link>
         </div>
         {/* Hamburger Icon */}
         <button

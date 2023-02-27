@@ -2,10 +2,13 @@ import React from 'react'
 import { Outlet, useLocation, useNavigate, Link } from 'react-router-dom'
 import DashHeader from './DashHeader'
 import Header from './Header'
+import useAuth from '../hooks/useAuth'
 
 const DashLayout = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
+
+  const { email, role } = useAuth()
 
   const goHomeHandler = () => navigate('/dash')
 
@@ -30,8 +33,8 @@ const DashLayout = () => {
         <Outlet />
         <footer className='mt-12'>
           {goHomeButton}
-          <p>Current User:</p>
-          <p>Status:</p>
+          <p>Current User: {email}</p>
+          <p>Status: {role}</p>
         </footer>
       </div>
     </>

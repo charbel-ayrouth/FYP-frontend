@@ -5,12 +5,16 @@ import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
 import { useFormik } from 'formik'
 import { userLoginSchema } from '../../config/validationSchemas'
+import usePersist from '../../hooks/usePersist'
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const [persist, setPersist] = usePersist()
   const [errorMessage, setErrorMessage] = useState('')
+
+  const handleToggle = () => setPersist((prev) => !prev)
 
   const [loginMutaion, { isLoading, isSuccess, isError, error }] =
     useLoginMutation()
@@ -100,6 +104,25 @@ const Login = () => {
                 {formik.touched.password && formik.errors.password ? (
                   <p className='text-red-600'>{formik.errors.password}</p>
                 ) : null}
+              </div>
+
+              <div>
+                <div className='flex items-center'>
+                  <input
+                    id='trust'
+                    type='checkbox'
+                    name='active'
+                    checked={persist}
+                    onChange={handleToggle}
+                    className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 '
+                  />
+                  <label
+                    htmlFor='trust'
+                    className='ml-2 font-medium text-gray-900 '
+                  >
+                    Trust This Device
+                  </label>
+                </div>
               </div>
 
               {/* Button */}

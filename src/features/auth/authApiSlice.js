@@ -1,5 +1,5 @@
 import { apiSlice } from '../../app/api/apiSlice'
-import { logOut } from './authSlice'
+import { logOut, setCredentials } from './authSlice'
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -23,7 +23,11 @@ export const authApiSlice = apiSlice.injectEndpoints({
           // const {data} = bet red mn backend message cookie cleared
           await queryFulfilled
           dispatch(logOut()) // set token = null
-          dispatch(apiSlice.util.resetApiState()) // clear cache and query subscription
+          // bug: even after logging out we still requesting notes avery 15s
+          // fix: wrap resetApiState in set Timeout for one second
+          setTimeout(() => {
+            dispatch(apiSlice.util.resetApiState()) // clear cache and query subscription
+          }, 1000)
         } catch (err) {
           console.log(err)
         }
@@ -35,6 +39,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: '/auth/refresh',
         method: 'GET',
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          const { accessToken } = data
+          dispatch(setCredentials({ accessToken }))
+        } catch (error) {
+          console.log(error)
+        }
+      },
     }),
   }),
 })

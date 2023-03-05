@@ -69,11 +69,11 @@ export const {
 } = usersApiSlice
 
 // returns the query result object
-export const selectUserResult = usersApiSlice.endpoints.getUsers.select()
+export const selectUsersResult = usersApiSlice.endpoints.getUsers.select()
 
 // creates memoized selector
 const selectUsersData = createSelector(
-  selectUserResult,
+  selectUsersResult,
   (usersResult) => usersResult.data // normalized state object with ids & entities
 )
 
@@ -82,4 +82,5 @@ export const {
   selectAll: selectAllUsers,
   selectById: selectUserbyId,
   selectIds: selectUserIds,
+  // Pass in a selector that returns the users slice of state
 } = usersAdapter.getSelectors((state) => selectUsersData(state) ?? initalState)

@@ -11,9 +11,11 @@ import Prefetch from './features/auth/Prefetch'
 import LandingPage from './components/LandingPage'
 import PersistLogin from './features/auth/PersistLogin'
 import RequireAuth from './features/auth/RequireAuth'
-import ROLES from './config/roles'
+import { ROLES } from './config/roles'
+import useTitle from './hooks/useTitle'
 
 function App() {
+  useTitle('FYP')
   return (
     <Routes>
       <Route path='/' element={<Layout />}>

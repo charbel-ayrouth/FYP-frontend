@@ -1,12 +1,16 @@
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectUserbyId } from './usersApiSlice'
 import { useDeleteUserMutation } from './usersApiSlice'
+import { useGetUsersQuery } from './usersApiSlice'
+import { memo } from 'react'
 
 const User = ({ userId }) => {
   const navigate = useNavigate()
 
-  const user = useSelector((state) => selectUserbyId(state, userId))
+  const { user } = useGetUsersQuery('usersList', {
+    selectFromResult: ({ data }) => ({
+      user: data?.entities[userId],
+    }),
+  })
 
   const [deleteUser, { isSuccess, isError, isLoading }] =
     useDeleteUserMutation()
@@ -45,4 +49,6 @@ const User = ({ userId }) => {
   } else return null
 }
 
-export default User
+const memoizedUser = memo(User)
+
+export default memoizedUser

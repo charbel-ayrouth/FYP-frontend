@@ -5,13 +5,9 @@ import { Outlet } from 'react-router-dom'
 
 const Prefetch = () => {
   useEffect(() => {
-    // mount => unmount => remount (react 18)
-    console.log('subscribing')
-    const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate()) // manual subscribtion
-    return () => {
-      console.log('unsubscribing')
-      users.unsubscribe()
-    }
+    store.dispatch(
+      usersApiSlice.util.prefetch('getUsers', 'usersList', { force: true })
+    )
   }, [])
 
   return <Outlet />

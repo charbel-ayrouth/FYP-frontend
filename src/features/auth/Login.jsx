@@ -46,12 +46,6 @@ const Login = () => {
     },
   })
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     dispatch('/dash')
-  //   }
-  // }, [dispatch, isSuccess])
-
   return (
     <section className='bg-gray-500 '>
       <div className='flex flex-col justify-center items-center px-6 py-8 mx-auto h-screen'>

@@ -15,7 +15,7 @@ const Domain = ({ domainId }) => {
     useDeleteDomainMutation()
 
   if (domain) {
-    const handleEdit = () => navigate(`/dash/domains/${domainId}`)
+    const handleEdit = () => navigate(`/admin/domains/${domainId}`)
 
     const handleDelete = async (id) => {
       await deleteDomain({ id })

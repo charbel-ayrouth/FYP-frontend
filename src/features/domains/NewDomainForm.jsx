@@ -12,7 +12,7 @@ const NewDomainForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/dash/domains')
+      navigate('/admin/domains')
     }
   }, [navigate, isSuccess])
 

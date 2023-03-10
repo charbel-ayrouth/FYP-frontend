@@ -14,10 +14,11 @@ const EditUserForm = ({ user }) => {
   const [email, setEmail] = useState(user.email)
   const [role, setRole] = useState(user.role)
   const [active, setActive] = useState(user.active)
+  const [id, setId] = useState(user.id)
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/dash/users')
+      navigate('/admin/users')
     }
   }, [isSuccess, navigate])
 
@@ -29,7 +30,7 @@ const EditUserForm = ({ user }) => {
     },
     validationSchema: userAdminSchema,
     onSubmit: async (values) => {
-      await updateUser({ id: user.id, ...values })
+      await updateUser({ id, ...values })
     },
   })
 

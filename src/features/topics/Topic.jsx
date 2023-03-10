@@ -14,7 +14,7 @@ const Topic = ({ topicId }) => {
   const [deleteTopic, { isSuccess, isError, error }] = useDeleteTopicMutation()
 
   if (topic) {
-    const handleEdit = () => navigate(`/dash/topics/${topicId}`)
+    const handleEdit = () => navigate(`/admin/topics/${topicId}`)
 
     const handleDelete = async (id) => {
       await deleteTopic({ id })

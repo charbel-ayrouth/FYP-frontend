@@ -16,7 +16,7 @@ const User = ({ userId }) => {
     useDeleteUserMutation()
 
   if (user) {
-    const handleEdit = () => navigate(`/dash/users/${userId}`)
+    const handleEdit = () => navigate(`/admin/users/${userId}`)
 
     const handleDelete = async (id) => {
       await deleteUser({ id: id })

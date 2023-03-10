@@ -13,7 +13,7 @@ const NewUserForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/dash/users')
+      navigate('/admin/users')
     }
   }, [isSuccess, navigate])
 

@@ -10,10 +10,10 @@ const DashLayout = () => {
 
   const { email, role, id } = useAuth()
 
-  const goHomeHandler = () => navigate('/dash')
+  const goHomeHandler = () => navigate('/admin')
 
   let goHomeButton = null
-  if (pathname !== 'dash') {
+  if (pathname !== 'admin') {
     goHomeButton = (
       <button title='Home' onClick={goHomeHandler}>
         Home

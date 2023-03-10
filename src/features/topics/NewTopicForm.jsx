@@ -12,7 +12,7 @@ const NewTopicForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/dash/topics')
+      navigate('/admin/topics')
     }
   }, [navigate, isSuccess])
 

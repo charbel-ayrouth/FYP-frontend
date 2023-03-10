@@ -34,6 +34,7 @@ function App() {
         <Route path='401' element={<NotAuthorized />} />
 
         <Route path='login' element={<Login />} />
+
         <Route path='auth' element={<PersistLogin />}>
           <Route index element={<AuthType />} />
         </Route>

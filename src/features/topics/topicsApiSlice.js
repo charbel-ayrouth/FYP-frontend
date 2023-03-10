@@ -44,20 +44,22 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
 
     // update topic
     updateTopic: builder.mutation({
-      query: (initialTopicData) => ({
-        url: '/topics',
-        method: 'PATCH',
-        body: { ...initialTopicData },
-      }),
+      query(data) {
+        const { id, ...body } = data
+        return {
+          url: `/topics/${id}`,
+          method: 'PATCH',
+          body,
+        }
+      },
       invalidatesTags: (result, error, arg) => [{ type: 'Topic', id: arg.id }],
     }),
 
     // delete topic
     deleteTopic: builder.mutation({
       query: ({ id }) => ({
-        url: '/topics',
+        url: `/topics/${id}`,
         method: 'DELETE',
-        body: { id },
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'Topic', id: arg.id }],
     }),

@@ -45,18 +45,21 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
 
     // update domain
     updateDomain: builder.mutation({
-      query: (initialDomainData) => ({
-        url: '/domains',
-        method: 'PATCH',
-        body: { ...initialDomainData },
-      }),
+      query(data) {
+        const { id, ...body } = data
+        return {
+          url: `/domains/${id}`,
+          method: 'PATCH',
+          body,
+        }
+      },
       invalidatesTags: (result, error, arg) => [{ type: 'Domain', id: arg.id }],
     }),
 
     // delete domain
     deleteDomain: builder.mutation({
       query: ({ id }) => ({
-        url: '/domains',
+        url: `/domains/${id}`,
         method: 'DELETE',
         body: { id },
       }),

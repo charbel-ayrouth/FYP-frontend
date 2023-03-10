@@ -14,7 +14,7 @@ const EditTopicForm = ({ topic }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/dash/topics')
+      navigate('/admin/topics')
     }
   }, [isSuccess, navigate])
 

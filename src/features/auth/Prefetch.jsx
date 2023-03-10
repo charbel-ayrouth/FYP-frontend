@@ -3,6 +3,7 @@ import { usersApiSlice } from '../users/usersApiSlice'
 import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { topicsApiSlice } from '../topics/topicsApiSlice'
+import { domainsApiSlice } from '../domains/domainsApiSlice'
 
 const Prefetch = () => {
   useEffect(() => {
@@ -11,6 +12,11 @@ const Prefetch = () => {
     )
     store.dispatch(
       topicsApiSlice.util.prefetch('getTopics', 'topicsList', { force: true })
+    )
+    store.dispatch(
+      domainsApiSlice.util.prefetch('getDomains', 'domainsList', {
+        force: true,
+      })
     )
   }, [])
 

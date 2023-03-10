@@ -17,7 +17,6 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
       }),
       transformResponse: (responseData) => {
         const loadedTopics = responseData.map((topic) => {
-          console.log('topic', topic)
           topic.id = topic._id
           return topic
         })
@@ -34,7 +33,7 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
     }),
 
     // add new topic
-    addNewTopicr: builder.mutation({
+    addNewTopic: builder.mutation({
       query: (initialTopicData) => ({
         url: '/topics',
         method: 'POST',
@@ -44,7 +43,7 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
     }),
 
     // update topic
-    updateUser: builder.mutation({
+    updateTopic: builder.mutation({
       query: (initialTopicData) => ({
         url: '/topics',
         method: 'PATCH',
@@ -67,8 +66,8 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetTopicsQuery,
-  useAddNewTopicrMutation,
-  useUpdateUserMutation,
+  useAddNewTopicMutation,
+  useUpdateTopicMutation,
   useDeleteTopicMutation,
 } = topicsApiSlice
 

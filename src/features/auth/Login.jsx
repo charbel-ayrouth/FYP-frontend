@@ -31,7 +31,7 @@ const Login = () => {
         const { accessToken } = await loginMutaion(values).unwrap()
         dispatch(setCredentials({ accessToken }))
         action.resetForm()
-        navigate('/dash')
+        navigate('/auth')
       } catch (err) {
         if (!err.status) {
           setErrorMessage('No Server Response')

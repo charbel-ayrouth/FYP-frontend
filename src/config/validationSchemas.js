@@ -15,3 +15,12 @@ export const userAdminSchema = yup.object().shape({
     .required('Please enter an email'),
   role: yup.string().required('Please select a role'),
 })
+
+export const topicSchema = yup.object().shape({
+  title: yup.string().required('Please enter a title'),
+})
+
+export const domainSchema = yup.object().shape({
+  title: yup.string().required('Please enter a title'),
+  example: yup.string(),
+})

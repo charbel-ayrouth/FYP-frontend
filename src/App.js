@@ -22,6 +22,7 @@ import NewDomainForm from './features/domains/NewDomainForm'
 import AuthType from './features/auth/AuthType'
 import SupervisorLanding from './components/Supervisor/SupervisorLanding'
 import NotAuthorized from './components/NotAuthorized'
+import AddTopics from './features/topics/Supervisor/AddTopics'
 
 function App() {
   useTitle('FYP')
@@ -76,6 +77,10 @@ function App() {
               >
                 <Route path='supervisor' element={<DashLayout />}>
                   <Route index element={<SupervisorLanding />} />
+
+                  <Route path='topics'>
+                    <Route index element={<AddTopics />} />
+                  </Route>
                 </Route>
               </Route>
               {/* End Supervisor Supervisor */}

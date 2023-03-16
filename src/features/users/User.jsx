@@ -23,23 +23,25 @@ const User = ({ userId }) => {
     }
 
     return (
-      <tr className={`border-b ${!user.active ? 'bg-gray-50' : 'bg-blue-50'}`}>
-        <td className='px-6 py-3 font-medium text-gray-900 whitespace-nowrap'>
+      <tr
+        className={`border-b ${!user.active ? 'bg-lightGrey' : 'bg-gray-50'}`}
+      >
+        <td className='whitespace-nowrap px-6 py-3 font-medium text-black'>
           {user.email}
         </td>
-        <td className='px-6 py-3 font-medium text-gray-900 whitespace-nowrap'>
+        <td className='whitespace-nowrap px-6 py-3 font-medium text-black'>
           {user.role}
         </td>
-        <td className='px-6 py-3 font-medium text-gray-900 whitespace-nowrap'>
+        <td className='whitespace-nowrap px-6 py-3 font-medium text-black'>
           <button
             onClick={handleEdit}
-            className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 focus:outline-none'
+            className='rounded-lg bg-blue-700 px-5 py-2.5 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300'
           >
             Edit
           </button>
           <button
             onClick={() => handleDelete(user.id)}
-            className='text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg px-5 py-2.5 focus:outline-none ml-2'
+            className='ml-2 rounded-lg bg-red-700 px-5 py-2.5 font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300'
           >
             Delete
           </button>

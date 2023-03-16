@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate, Link } from 'react-router-dom'
 import DashHeader from './DashHeader'
 import Header from '../Header'
 import useAuth from '../../hooks/useAuth'
+import DashFooter from './DashFooter'
 
 const DashLayout = () => {
   const { pathname } = useLocation()
@@ -22,19 +23,20 @@ const DashLayout = () => {
   }
 
   return (
-    <>
+    <div className='flex h-screen flex-col'>
       <DashHeader />
       {/* <Header /> */}
-      <div className='container mx-auto'>
+      <div className='container mx-auto flex-grow'>
         <Outlet />
-        <footer className='mt-12'>
+        {/* <footer className='mt-12'>
           {goHomeButton}
           <p>Current User: {email}</p>
           <p>Status: {role}</p>
           <p>id: {id}</p>
-        </footer>
+        </footer> */}
       </div>
-    </>
+      <DashFooter />
+    </div>
   )
 }
 

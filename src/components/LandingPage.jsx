@@ -8,7 +8,7 @@ const LandingPage = () => {
   return (
     <>
       <Header />
-      <div className='flex justify-center items-center h-screen bg-lightGray'>
+      <div className='bg-lightGray flex h-screen items-center justify-center'>
         <div>
           <h1 className='font-bold'>Landing Page</h1>
           <h2 className='font-semibold'>Subtitle</h2>
@@ -18,15 +18,15 @@ const LandingPage = () => {
           </p>
           <button
             onClick={() => navigate('/login')}
-            className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2.5 mr-2 mb-2 focus:outline-none font-medium'
+            className='mr-2 mb-2 rounded-lg bg-blue-700 px-5 py-2.5 font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300'
           >
             login
           </button>
-          <div className='w-10 h-10 bg-deepBlue'></div>
-          <div className='w-10 h-10 bg-lightBlue'></div>
-          <div className='w-10 h-10 bg-brightYellow'></div>
-          <div className='w-10 h-10 bg-lightGray'></div>
-          <div className='w-10 h-10 bg-darkGray'></div>
+
+          <div className='h-10 w-10 bg-primary'></div>
+          <div className='h-10 w-10 bg-accent'></div>
+          <div className='h-10 w-10 bg-darkGrey'></div>
+          <div className='h-10 w-10 bg-darkerGrey'></div>
         </div>
       </div>
     </>

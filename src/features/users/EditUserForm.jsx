@@ -38,14 +38,14 @@ const EditUserForm = ({ user }) => {
     <div className='mx-auto flex flex-col items-center justify-center'>
       <form
         onSubmit={formik.handleSubmit}
-        className='bg-blue-50 px-6 py-8 rounded-lg shadow-lg w-5/6 sm:w-96'
+        className='w-5/6 space-y-4 rounded-lg bg-gray-50 px-6 py-8 shadow-lg sm:w-96 md:space-y-6'
       >
-        <h2 className=' text-xl font-bold md:text-2xl mb-6'>Edit account</h2>
+        <h2 className='text-xl font-bold md:text-2xl'>Edit account</h2>
 
-        <div className='mb-6'>
+        <div>
           <label
             htmlFor='email'
-            className='block mb-2 font-medium text-gray-900'
+            className='mb-2 block text-sm font-medium text-black md:text-base'
           >
             Email
           </label>
@@ -57,17 +57,17 @@ const EditUserForm = ({ user }) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             autoComplete='off'
-            className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 w-full'
+            className='block w-full rounded-lg border border-darkGrey p-2.5 text-darkerGrey focus:border-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight'
           />
           {formik.touched.email && formik.errors.email ? (
             <p className='text-red-600'>{formik.errors.email}</p>
           ) : null}
         </div>
 
-        <div className='mb-6'>
+        <div>
           <label
             htmlFor='roles'
-            className='block mb-2 font-medium text-gray-900'
+            className='mb-2 block text-sm font-medium text-black md:text-base'
           >
             ASSIGNED ROLES:
           </label>
@@ -77,7 +77,7 @@ const EditUserForm = ({ user }) => {
             value={formik.values.role}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 w-full'
+            className='block w-full rounded-lg border border-darkGrey p-2.5 text-darkerGrey focus:border-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight'
           >
             <option value=''></option>
             {Object.values(ROLES).map((role) => {
@@ -93,8 +93,10 @@ const EditUserForm = ({ user }) => {
           ) : null}
         </div>
 
-        <div className='mb-6'>
-          <p className='block mb-2 font-medium text-gray-900'>Status</p>
+        <div>
+          <p className='mb-2 block text-sm font-medium text-black md:text-base'>
+            Status
+          </p>
           <div className='flex items-center'>
             <input
               id='status'
@@ -104,24 +106,32 @@ const EditUserForm = ({ user }) => {
               value={formik.values.active}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2 '
+              className='h-4 w-4 rounded border-primaryLight text-primary focus:outline-none'
             />
-            <label htmlFor='status' className='ml-2 font-medium text-gray-900 '>
+            <label
+              htmlFor='status'
+              className='ml-2 text-sm font-medium text-darkerGrey md:text-base'
+            >
               Active
             </label>
           </div>
         </div>
 
-        <button
-          type='submit'
-          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center  w-full'
-          disabled={formik.isSubmitting || isLoading}
-        >
-          Update
-        </button>
+        <div>
+          <button
+            type='submit'
+            className='w-full rounded-lg bg-primary px-4 py-2 text-center text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4  focus:ring-primaryLight'
+            disabled={formik.isSubmitting || isLoading}
+          >
+            Update
+          </button>
+          {isError && (
+            <p className='mt-2 text-center text-red-600'>
+              {error?.data?.message}
+            </p>
+          )}
+        </div>
       </form>
-
-      {isError && <p className='text-red-600 mt-6'>{error?.data?.message}</p>}
     </div>
   )
 }

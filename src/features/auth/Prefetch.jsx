@@ -20,6 +20,20 @@ const Prefetch = () => {
     )
   }, [])
 
+  // useEffect(() => {
+  //   const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate())
+  //   const topics = store.dispatch(topicsApiSlice.endpoints.getTopics.initiate())
+  //   const domains = store.dispatch(
+  //     domainsApiSlice.endpoints.getDomains.initiate()
+  //   )
+
+  //   return () => {
+  //     users.unsubscribe()
+  //     topics.unsubscribe()
+  //     domains.unsubscribe()
+  //   }
+  // }, [])
+
   return <Outlet />
 }
 

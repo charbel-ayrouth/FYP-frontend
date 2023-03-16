@@ -63,6 +63,19 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'Topic', id: arg.id }],
     }),
+
+    // add topics to user
+    addTopicsToUser: builder.mutation({
+      query(data) {
+        const { id, ...body } = data
+        return {
+          url: `/topics/user/${id}`,
+          method: 'POST',
+          body,
+        }
+      },
+      invalidatesTags: [{ type: 'Topic', id: 'LIST' }],
+    }),
   }),
 })
 
@@ -71,19 +84,20 @@ export const {
   useAddNewTopicMutation,
   useUpdateTopicMutation,
   useDeleteTopicMutation,
+  useAddTopicsToUserMutation,
 } = topicsApiSlice
 
-export const selectTopicsResult = topicsApiSlice.endpoints.getTopics.select()
+// const selectTopicsResult = topicsApiSlice.endpoints.getTopics.select()
 
-const selectTopicsData = createSelector(
-  selectTopicsResult,
-  (topicsResult) => topicsResult.data
-)
+// const selectTopicsData = createSelector(
+//   selectTopicsResult,
+//   (topicsResult) => topicsResult.data
+// )
 
-export const {
-  selectAll: selectAllTopics,
-  selectById: selectTopicById,
-  selectIds: selectTopicIds,
-} = topicsAdapter.getSelectors(
-  (state) => selectTopicsData(state) ?? initalState
-)
+// export const {
+//   selectAll: selectAllTopics,
+//   selectById: selectTopicById,
+//   selectIds: selectTopicIds,
+// } = topicsAdapter.getSelectors(
+//   (state) => selectTopicsData(state) ?? initalState
+// )

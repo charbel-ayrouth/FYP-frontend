@@ -75,17 +75,17 @@ export const {
   useUpdateDomainMutation,
 } = domainsApiSlice
 
-export const selectDomainsResult = domainsApiSlice.endpoints.getDomains.select()
+// export const selectDomainsResult = domainsApiSlice.endpoints.getDomains.select()
 
-const selectDomainsData = createSelector(
-  selectDomainsResult,
-  (domainsResult) => domainsResult.data
-)
+// const selectDomainsData = createSelector(
+//   selectDomainsResult,
+//   (domainsResult) => domainsResult.data
+// )
 
-export const {
-  selectAll: selectAllDomains,
-  selectById: selectDomainbyId,
-  selectIds: selectDomainIds,
-} = domainsAdapter.getSelectors(
-  (state) => selectDomainsData(state) ?? initalState
-)
+// export const {
+//   selectAll: selectAllDomains,
+//   selectById: selectDomainbyId,
+//   selectIds: selectDomainIds,
+// } = domainsAdapter.getSelectors(
+//   (state) => selectDomainsData(state) ?? initalState
+// )

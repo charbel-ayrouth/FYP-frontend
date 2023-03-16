@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 
 const Welcome = () => {
-  const { email, role } = useAuth()
+  const { email } = useAuth()
 
   return (
-    <section className='mx-auto w-96 space-y-3'>
+    <section className='mx-auto space-y-3'>
       <p>Welcome {email}</p>
       <p>
         <Link to={'/admin/users'}>view users settings</Link>

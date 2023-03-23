@@ -76,6 +76,19 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
       },
       invalidatesTags: [{ type: 'Topic', id: 'LIST' }],
     }),
+
+    // update topics for user
+    updateTopicsForUser: builder.mutation({
+      query(data) {
+        const { id, ...body } = data
+        return {
+          url: `/topics/user/${id}`,
+          method: 'PATCH',
+          body,
+        }
+      },
+      invalidatesTags: [{ type: 'Topic', id: 'LIST' }],
+    }),
   }),
 })
 
@@ -85,6 +98,7 @@ export const {
   useUpdateTopicMutation,
   useDeleteTopicMutation,
   useAddTopicsToUserMutation,
+  useUpdateTopicsForUserMutation,
 } = topicsApiSlice
 
 // const selectTopicsResult = topicsApiSlice.endpoints.getTopics.select()

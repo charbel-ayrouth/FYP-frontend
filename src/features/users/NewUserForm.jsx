@@ -29,17 +29,19 @@ const NewUserForm = () => {
   })
 
   return (
-    <div className='mx-auto flex flex-col items-center justify-center'>
+    <div className='mx-auto flex flex-col items-center justify-center bg-gray-50'>
       <form
         onSubmit={formik.handleSubmit}
-        className='w-5/6 space-y-4 rounded-lg bg-gray-50 px-6 py-8 shadow-lg sm:w-96 md:space-y-6'
+        className='w-5/6 space-y-4 rounded-lg bg-white px-6 py-8 shadow-lg sm:w-96 md:space-y-6'
       >
-        <h2 className='text-xl font-bold md:text-2xl'>Create account</h2>
+        <h2 className='text-xl font-bold leading-tight tracking-tight md:text-2xl'>
+          Create account
+        </h2>
 
         <div>
           <label
             htmlFor='email'
-            className='mb-2 block text-sm font-medium text-black md:text-base'
+            className='mb-2 block text-sm font-medium text-gray-900 md:text-base'
           >
             Email
           </label>
@@ -48,7 +50,7 @@ const NewUserForm = () => {
             type='email'
             {...formik.getFieldProps('email')}
             autoComplete='off'
-            className='block w-full rounded-lg border border-darkGrey p-2.5 text-darkerGrey focus:border-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight'
+            className='block w-full rounded-lg border border-gray-300 p-2.5 text-gray-900 focus:border-2 focus:border-primaryLight focus:outline-none'
           />
           {formik.touched.email && formik.errors.email ? (
             <p className='text-red-600'>{formik.errors.email}</p>
@@ -58,14 +60,14 @@ const NewUserForm = () => {
         <div>
           <label
             htmlFor='roles'
-            className='mb-2 block text-sm font-medium text-black md:text-base'
+            className='mb-2 block text-sm font-medium text-gray-900 md:text-base'
           >
             ASSIGNED ROLES:
           </label>
           <select
             id='role'
             {...formik.getFieldProps('role')}
-            className='block w-full rounded-lg border border-darkGrey p-2.5 text-darkerGrey focus:border-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight'
+            className='block w-full rounded-lg border border-gray-300 p-2.5 text-gray-900 focus:border-2 focus:border-primaryLight focus:outline-none'
           >
             <option value=''></option>
             {Object.values(ROLES).map((role) => {

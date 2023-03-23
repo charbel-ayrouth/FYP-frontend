@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetDomainsQuery } from './domainsApiSlice'
 import EditDomainForm from './EditDomainForm'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 const EditDomain = () => {
   const { id } = useParams()
@@ -15,7 +16,7 @@ const EditDomain = () => {
   const content = domain ? (
     <EditDomainForm domain={domain} />
   ) : (
-    <p>Loading...</p>
+    <LoadingSpinner />
   )
 
   return content

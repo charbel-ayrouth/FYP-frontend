@@ -2,10 +2,10 @@ import React from 'react'
 
 const DashFooter = () => {
   return (
-    <footer className='flex h-14 items-center justify-center bg-primary'>
-      <p className='font-accent text-accent'>
-        Copiright &copy; Charbel Ayrouth
-      </p>
+    <footer className='mt-12 border border-gray-200 bg-white p-4 shadow-inner md:p-8 lg:p-10'>
+      <div className='mx-auto max-w-screen-xl text-center'>
+        <p className='font-accent text-gray-900'>Copyright &copy; FYP</p>
+      </div>
     </footer>
   )
 }

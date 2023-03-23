@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSendLogoutMutation } from '../../features/auth/authApiSlice'
-import useAuth from '../../hooks/useAuth'
 
 const DashHeader = () => {
   const navigate = useNavigate()
@@ -33,11 +32,11 @@ const DashHeader = () => {
     <>
       {isError && <p>{error?.data?.message}</p>}
       {isLoading && <p>loading...</p>}
-      <nav className='font-mono relative'>
-        <div className='container mx-auto px-6 py-4 xl:px-0'>
+      <nav className='relative mb-16 border border-gray-200 bg-white shadow-md'>
+        <div className='container mx-auto py-4 lg:px-6'>
           <div className='flex items-center justify-between'>
             {/* Logo */}
-            <div className='text-2xl font-bold'>FYP</div>
+            <div className='text-2xl font-bold text-primary'>FYP</div>
             {/* Menu Items */}
             <div className='hidden space-x-6 font-heading font-semibold md:flex'>
               <Link
@@ -80,15 +79,15 @@ const DashHeader = () => {
               {!open && (
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  class='h-6 w-6'
+                  className='h-6 w-6'
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'
-                  stroke-width='2'
+                  strokeWidth='2'
                 >
                   <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
                     d='M4 8h16M4 16h16'
                   />
                 </svg>
@@ -97,15 +96,15 @@ const DashHeader = () => {
               {open && (
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  class='h-6 w-6'
+                  className='h-6 w-6'
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'
-                  stroke-width='2'
+                  strokeWidth='2'
                 >
                   <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
                     d='M6 18L18 6M6 6l12 12'
                   />
                 </svg>
@@ -120,13 +119,38 @@ const DashHeader = () => {
               open
                 ? ' translate-x-0 opacity-100'
                 : '-translate-x-full opacity-0'
-            } absolute flex w-full flex-col items-center space-y-6 self-end bg-blue-300 py-8 font-heading font-semibold drop-shadow-md transition-all duration-300 ease-in-out sm:self-center`}
+            } absolute top-12 flex w-full flex-col items-center space-y-6 self-end bg-white py-8 font-heading font-semibold transition-all duration-300 ease-in-out sm:self-center`}
           >
-            <Link to={'/admin/dashboard'}>Dashboard</Link>
-            <Link to={'/admin/users'}>Users</Link>
-            <Link to={'/admin/topics'}>Topics</Link>
-            <Link to={'/admin/domains'}>Domains</Link>
-            <Link onClick={logoutHandler}>Logout</Link>
+            <Link
+              className='w-full border border-b-primaryLight py-4 text-center'
+              to={'/admin/dashboard'}
+            >
+              Dashboard
+            </Link>
+            <Link
+              className='w-full border border-b-primaryLight py-4 text-center'
+              to={'/admin/users'}
+            >
+              Users
+            </Link>
+            <Link
+              className='w-full border border-b-primaryLight py-4 text-center'
+              to={'/admin/topics'}
+            >
+              Topics
+            </Link>
+            <Link
+              className='w-full border border-b-primaryLight py-4 text-center'
+              to={'/admin/domains'}
+            >
+              Domains
+            </Link>
+            <Link
+              className='w-full border border-b-primaryLight py-4 text-center'
+              onClick={logoutHandler}
+            >
+              Logout
+            </Link>
           </div>
         </div>
       </nav>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
@@ -6,18 +6,23 @@ import { useLoginMutation } from './authApiSlice'
 import { useFormik } from 'formik'
 import { userLoginSchema } from '../../config/validationSchemas'
 import usePersist from '../../hooks/usePersist'
+import useAuth from '../../hooks/useAuth'
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { role } = useAuth()
+
+  useEffect(() => {
+    if (role) navigate('/auth')
+  }, [role, navigate])
 
   const [persist, setPersist] = usePersist()
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleToggle = () => setPersist((prev) => !prev)
 
-  const [loginMutaion, { isLoading, isSuccess, isError, error }] =
-    useLoginMutation()
+  const [loginMutaion, { isLoading }] = useLoginMutation()
 
   const formik = useFormik({
     initialValues: {
@@ -47,12 +52,12 @@ const Login = () => {
   })
 
   return (
-    <section className='bg-primaryLight'>
+    <section className='bg-gray-50'>
       <div className='mx-auto flex h-screen flex-col items-center justify-center px-6 py-8'>
         {/* Form container*/}
-        <div className='w-full rounded-lg border border-gray-300 bg-white shadow-lg sm:max-w-md'>
+        <div className='w-full rounded-lg bg-white shadow-2xl sm:max-w-md'>
           <div className='space-y-4 p-6 sm:p-8 md:space-y-6'>
-            <h2 className='text-xl font-bold text-primary md:text-2xl'>
+            <h2 className='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl'>
               Sign In
             </h2>
             {/* Form */}
@@ -63,7 +68,7 @@ const Login = () => {
               <div>
                 <label
                   htmlFor='email'
-                  className='mb-2 block text-sm font-medium text-darkerGrey md:text-base'
+                  className='mb-2 block text-sm font-medium text-gray-900 md:text-base'
                 >
                   Your email
                 </label>
@@ -71,7 +76,7 @@ const Login = () => {
                   id='email'
                   type='email'
                   {...formik.getFieldProps('email')}
-                  className='block w-full rounded-lg border border-darkGrey bg-gray-50 p-2.5 text-black focus:border-2 focus:border-primary focus:outline-none sm:text-sm'
+                  className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-2 focus:border-primaryLight focus:outline-none sm:text-sm'
                   placeholder='name@email.com'
                 />
                 {formik.touched.email && formik.errors.email ? (
@@ -82,7 +87,7 @@ const Login = () => {
               <div>
                 <label
                   htmlFor='password'
-                  className='mb-2 block text-sm font-medium text-darkerGrey md:text-base'
+                  className='mb-2 block text-sm font-medium text-gray-900 md:text-base'
                 >
                   Password
                 </label>
@@ -90,7 +95,7 @@ const Login = () => {
                   id='password'
                   type='password'
                   {...formik.getFieldProps('password')}
-                  className='block w-full rounded-lg  border border-darkGrey bg-gray-50 p-2.5 text-black focus:border-2 focus:border-blue-500 focus:outline-none sm:text-sm'
+                  className='block w-full rounded-lg  border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-2 focus:border-primaryLight focus:outline-none sm:text-sm'
                   placeholder='******'
                 />
                 {formik.touched.password && formik.errors.password ? (
@@ -110,7 +115,7 @@ const Login = () => {
                   />
                   <label
                     htmlFor='trust'
-                    className='ml-2 text-sm font-medium text-darkerGrey md:text-base'
+                    className='ml-2 text-sm font-medium text-gray-500 md:text-base'
                   >
                     Trust This Device
                   </label>
@@ -121,10 +126,10 @@ const Login = () => {
               <div>
                 <button
                   type='submit'
-                  className='w-full rounded-lg bg-accent px-4 py-2 text-center text-lg font-medium text-white hover:bg-accentDark focus:outline-none focus:ring-4 focus:ring-accentLight'
+                  className='w-full rounded-lg bg-primary px-4 py-2 text-center text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
                   disabled={formik.isSubmitting || isLoading}
                 >
-                  Login
+                  Sign In
                 </button>
                 {errorMessage && (
                   <p

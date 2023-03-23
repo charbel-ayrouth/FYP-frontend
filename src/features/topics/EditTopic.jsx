@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import EditTopicForm from './EditTopicForm'
 import { useGetTopicsQuery } from './topicsApiSlice'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 const EditTopic = () => {
   const { id } = useParams()
@@ -12,7 +13,7 @@ const EditTopic = () => {
     }),
   })
 
-  const content = topic ? <EditTopicForm topic={topic} /> : <p>Loading...</p>
+  const content = topic ? <EditTopicForm topic={topic} /> : <LoadingSpinner />
 
   return content
 }

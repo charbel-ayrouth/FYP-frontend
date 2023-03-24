@@ -1,17 +1,17 @@
 import React from 'react'
-import Image from '../../assets/svg/hero.svg'
+import Image from '../../assets/svg/collaboration.svg'
 
 const Hero = () => {
   return (
     <section>
       {/* Flex container */}
-      <div className='container mx-auto flex flex-col-reverse items-center px-4 md:flex-row'>
+      <div className='container mx-auto flex flex-col-reverse items-center px-4 md:flex-row xl:px-16'>
         {/* Left Item */}
-        <div className='mt-14 flex flex-col items-center space-y-12 md:mt-0 md:w-1/2 md:items-start'>
-          <h1 className='max-w-md text-center text-4xl font-bold md:text-left md:text-5xl'>
+        <div className='mt-14 flex flex-col items-center md:mt-0 md:w-1/2 md:items-start'>
+          <h1 className='mb-4 max-w-md text-center text-4xl font-bold md:text-left md:text-5xl'>
             Final Year Project (FYP) Proposal Management System
           </h1>
-          <p className='max-w-sm text-center text-darkGrey md:text-left'>
+          <p className='mb-8 max-w-sm text-center text-gray-500 md:text-left'>
             Revolutionize the way you approach your Final Year Project with our
             comprehensive management system - simplifying the proposal process,
             connecting you with the right advisor, and providing all the
@@ -22,7 +22,7 @@ const Hero = () => {
           </button>
         </div>
         {/* Right Item */}
-        <div className='md:w1/2'>
+        <div className='md:w-1/2'>
           <img src={Image} alt='hero' />
         </div>
       </div>

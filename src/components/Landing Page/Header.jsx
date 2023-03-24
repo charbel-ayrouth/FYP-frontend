@@ -24,7 +24,7 @@ const Header = () => {
   return (
     <>
       <nav className='relative mb-16 bg-white'>
-        <div className='container mx-auto p-4'>
+        <div className='container mx-auto p-4 xl:px-16'>
           <div className='flex items-center justify-between'>
             {/* Logo */}
             <div className='text-2xl font-bold text-primary'>FYP</div>

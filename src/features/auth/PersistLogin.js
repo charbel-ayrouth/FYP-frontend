@@ -1,4 +1,4 @@
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet, Link, Navigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { useRefreshMutation } from './authApiSlice'
 import usePersist from '../../hooks/usePersist'
@@ -52,15 +52,7 @@ const PersistLogin = () => {
   } else if (isError) {
     //persist: yes, token: no
     console.log('error')
-    content = (
-      <p className='text-red-700'>
-        {`${error?.data?.message} - `}
-        <Link to='/login' className='underline'>
-          Please login again
-        </Link>
-        .
-      </p>
-    )
+    content = <Navigate to={'/401'} replace />
   } else if (isSuccess && trueSuccess) {
     //persist: yes, token: yes
     console.log('success')

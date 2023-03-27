@@ -8,7 +8,7 @@ import UsersList from './features/users/UsersList'
 import EditUser from './features/users/EditUser'
 import NewUserForm from './features/users/NewUserForm'
 import Prefetch from './features/auth/Prefetch'
-import LandingPage from './components/LandingPage'
+import LandingPage from './components/Landing Page/LandingPage'
 import PersistLogin from './features/auth/PersistLogin'
 import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/roles'
@@ -23,6 +23,7 @@ import AuthType from './features/auth/AuthType'
 import SupervisorLanding from './components/Supervisor/SupervisorLanding'
 import NotAuthorized from './components/NotAuthorized'
 import AddTopics from './features/topics/Supervisor/AddTopics'
+import NotFound from './components/NotFound'
 
 function App() {
   useTitle('FYP')
@@ -87,8 +88,10 @@ function App() {
             </Route>
           </Route>
         </Route>
-
         {/* End Protected Routes */}
+
+        {/* 404 */}
+        <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>
   )

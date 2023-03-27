@@ -1,7 +1,10 @@
 import React from 'react'
 import Image from '../../assets/svg/collaboration.svg'
+import { useNavigate } from 'react-router-dom'
 
 const Hero = () => {
+  const navigate = useNavigate()
+
   return (
     <section>
       {/* Flex container */}
@@ -17,7 +20,10 @@ const Hero = () => {
             connecting you with the right advisor, and providing all the
             resources you need to succeed
           </p>
-          <button className='w-36 rounded-full bg-primary px-4 py-2 font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'>
+          <button
+            onClick={() => navigate('/login')}
+            className='w-36 rounded-full bg-primary px-4 py-2 font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
+          >
             Get Started
           </button>
         </div>

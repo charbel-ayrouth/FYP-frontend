@@ -1,10 +1,10 @@
 import React from 'react'
 import Image from '../../assets/svg/hero.svg'
-const About = () => {
+const About = ({ ref }) => {
   return (
-    <section>
+    <section ref={ref}>
       {/* Flex container */}
-      <div className='container mx-auto flex flex-col items-center px-4 md:flex-row md:justify-between xl:px-16'>
+      <div className='container mx-auto mt-20 flex flex-col items-center px-4 md:flex-row md:justify-between lg:mt-32 xl:px-16'>
         {/* Left Item */}
         <div className='md:w-5/12'>
           <img src={Image} alt='details' />

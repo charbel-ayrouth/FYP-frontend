@@ -8,12 +8,12 @@ const useAuth = () => {
 
   if (token) {
     const decoded = jwtDecode(token)
-    const { email, role, id } = decoded.UserInfo
+    const { email, role, id, active, username } = decoded.UserInfo
 
-    return { email, role, id }
+    return { email, role, id, active, username }
   }
 
-  return { email: '', role: '', id: '' }
+  return { email: '', role: '', id: '', active: '', username: '' }
 }
 
 export default useAuth

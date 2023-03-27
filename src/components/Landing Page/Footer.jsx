@@ -1,25 +1,41 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-scroll'
 
 const Footer = () => {
   return (
-    <footer className='container mx-auto mt-16 rounded-lg bg-white px-4 shadow xl:px-16'>
-      <div className='container mx-auto w-full p-4 md:flex md:items-center md:justify-between md:p-6'>
-        <span className='text-sm text-gray-500 sm:text-center'>
-          © 2023 Charbel Ayrouth
-        </span>
-        <ul className='mt-3 flex flex-wrap items-center text-sm text-gray-500 sm:mt-0'>
+    <footer className='container mx-auto'>
+      <div className='container mx-auto flex w-full flex-col items-center p-4 sm:flex-row sm:items-center sm:justify-between md:p-6 xl:px-16'>
+        <span className='text-sm text-gray-500'>© 2023 Charbel Ayrouth</span>
+        <ul className='mt-3 flex flex-wrap items-center space-x-4 text-sm text-gray-500 sm:mt-0 md:space-x-6'>
           <li>
-            <Link className='mr-4 hover:underline md:mr-6'>About</Link>
+            <Link
+              to='hero'
+              smooth={true}
+              duration={500}
+              className='hover:cursor-pointer hover:underline'
+            >
+              Home
+            </Link>
           </li>
           <li>
-            <Link className='mr-4 hover:underline md:mr-6'>Privacy Policy</Link>
+            <Link
+              to='features'
+              smooth={true}
+              duration={500}
+              className='hover:cursor-pointer hover:underline'
+            >
+              Features
+            </Link>
           </li>
           <li>
-            <Link className='mr-4 hover:underline md:mr-6'>Licensing</Link>
-          </li>
-          <li>
-            <Link className='hover:underline'>Contact</Link>
+            <Link
+              to='about'
+              smooth={true}
+              duration={500}
+              className='hover:cursor-pointer hover:underline'
+            >
+              About
+            </Link>
           </li>
         </ul>
       </div>

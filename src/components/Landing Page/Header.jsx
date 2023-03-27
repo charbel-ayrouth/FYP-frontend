@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-scroll'
 
 const Header = () => {
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className='relative mb-16 bg-white'>
+      <nav className='sticky top-0 z-10 mb-16 bg-white shadow-md'>
         <div className='container mx-auto p-4 xl:px-16'>
           <div className='flex items-center justify-between'>
             {/* Logo */}
@@ -31,32 +32,36 @@ const Header = () => {
             {/* Menu Items */}
             <div className='hidden space-x-6 font-heading font-semibold md:flex'>
               <Link
-                to={'/admin'}
-                className='transform transition-colors duration-300 hover:text-primary'
+                to='hero'
+                smooth={true}
+                duration={500}
+                offset={-100}
+                className='transform transition-colors duration-300 hover:cursor-pointer hover:text-primary'
               >
-                Dashboard
+                Home
               </Link>
               <Link
-                to={'/admin/users'}
-                className='transform transition-colors duration-300 hover:text-primary'
+                to='features'
+                smooth={true}
+                duration={500}
+                className='transform transition-colors duration-300 hover:cursor-pointer hover:text-primary'
               >
-                Users
+                Features
               </Link>
               <Link
-                to={'/admin/topics'}
-                className='transform transition-colors duration-300 hover:text-primary'
+                to='about'
+                smooth={true}
+                duration={500}
+                className='transform transition-colors duration-300 hover:cursor-pointer hover:text-primary'
               >
-                Topics
-              </Link>
-              <Link
-                to={'/admin/domains'}
-                className='transform transition-colors duration-300 hover:text-primary'
-              >
-                Domains
+                About
               </Link>
             </div>
 
-            <button className='hidden rounded-full bg-primary px-4 py-2 font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight md:block'>
+            <button
+              onClick={() => navigate('/login')}
+              className='hidden rounded-full bg-primary px-4 py-2 font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight md:block'
+            >
               Get Started
             </button>
             {/* Hamburger Icon */}
@@ -81,31 +86,35 @@ const Header = () => {
               open
                 ? ' translate-x-0 opacity-100'
                 : '-translate-x-full opacity-0'
-            } absolute top-16 flex w-full flex-col items-center space-y-6 self-end bg-white py-8 font-heading font-semibold transition-all duration-300 ease-in-out sm:self-center`}
+            } absolute top-16 flex w-full flex-col items-center self-end bg-white font-heading font-semibold transition-all duration-300 ease-in-out sm:self-center`}
           >
             <Link
-              className='w-full border-b-2 border-primaryLight py-4 text-center'
-              to={'/admin/dashboard'}
+              to='hero'
+              smooth={true}
+              duration={500}
+              offset={-100}
+              className='w-full border-b-2 border-primaryLight py-5 text-center'
+              onClick={() => setOpen(false)}
             >
-              Dashboard
+              Home
             </Link>
             <Link
-              className='w-full border-b-2 border-primaryLight py-4 text-center'
-              to={'/admin/users'}
+              to='features'
+              smooth={true}
+              duration={500}
+              className='w-full border-b-2 border-primaryLight py-5 text-center'
+              onClick={() => setOpen(false)}
             >
-              Users
+              Features
             </Link>
             <Link
-              className='w-full border-b-2 border-primaryLight py-4 text-center'
-              to={'/admin/topics'}
+              className='w-full border-b-2 border-primaryLight py-5 text-center'
+              to='about'
+              smooth={true}
+              duration={500}
+              onClick={() => setOpen(false)}
             >
-              Topics
-            </Link>
-            <Link
-              className='w-full border-b-2 border-primaryLight py-4 text-center'
-              to={'/admin/domains'}
-            >
-              Domains
+              About
             </Link>
           </div>
         </div>

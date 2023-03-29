@@ -6,6 +6,7 @@ const Header = () => {
   const navigate = useNavigate()
 
   const [open, setOpen] = useState(false)
+
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -72,9 +73,9 @@ const Header = () => {
               id='menu-btn'
               onClick={() => setOpen((prevState) => !prevState)}
             >
-              <span class='hamburger-top'></span>
-              <span class='hamburger-middle'></span>
-              <span class='hamburger-bottom'></span>
+              <span className='hamburger-top'></span>
+              <span className='hamburger-middle'></span>
+              <span className='hamburger-bottom'></span>
             </button>
           </div>
         </div>

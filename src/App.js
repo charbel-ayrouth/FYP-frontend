@@ -30,7 +30,6 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
-        {/* Public Routes */}
         <Route index element={<LandingPage />} />
 
         <Route path='401' element={<NotAuthorized />} />

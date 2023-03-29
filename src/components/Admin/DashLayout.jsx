@@ -26,12 +26,6 @@ const DashLayout = () => {
       <DashHeader />
       <div className='container mx-auto flex-grow'>
         <Outlet />
-        {/* <footer className='mt-12'>
-          {goHomeButton}
-          <p>Current User: {email}</p>
-          <p>Status: {role}</p>
-          <p>id: {id}</p>
-        </footer> */}
       </div>
       <DashFooter />
     </div>

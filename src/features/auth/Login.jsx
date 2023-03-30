@@ -14,7 +14,7 @@ const Login = () => {
   const { role } = useAuth()
 
   useEffect(() => {
-    if (role) navigate('/auth')
+    if (role) navigate('/login/auth')
   }, [role, navigate])
 
   const [persist, setPersist] = usePersist()

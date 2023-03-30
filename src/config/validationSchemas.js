@@ -24,3 +24,12 @@ export const domainSchema = yup.object().shape({
   title: yup.string().required('Please enter a title'),
   example: yup.string(),
 })
+
+export const updateProfileSchema = yup.object().shape({
+  username: yup.string().required('Required'),
+  password: yup.string().required('Required'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required('Required'),
+})

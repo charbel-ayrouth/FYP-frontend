@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react'
 import Modal from '../Modal'
 import ProfileForm from '../../features/profile/ProfileForm'
 import useAuth from '../../hooks/useAuth'
+import { ROLES } from '../../config/roles'
 
 const SupervisorLanding = () => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const { id, username } = useAuth()
+  const { id, username, role } = useAuth()
 
   useEffect(() => {
-    if (!username) {
+    if (!username && role !== ROLES.Admin) {
       setIsOpen(true)
     }
-  }, [username])
+  }, [username, role])
 
   const closeHandler = () => {
     setIsOpen(false)
@@ -23,14 +24,31 @@ const SupervisorLanding = () => {
       <Modal open={isOpen}>
         <ProfileForm id={id} closeHandler={closeHandler} />
       </Modal>
-      <div className='container mx-auto mb-32 px-4 xl:px-40'>
+      <div className='container mx-auto mb-32 bg-primaryLight px-4 xl:px-40'>
         <div className='grid grid-flow-row-dense gap-4 md:grid-cols-2 lg:grid-cols-3'>
-          <div className='rounded-lg bg-sky-500 p-16 sm:row-span-2'>1</div>
-          <div className='rounded-lg bg-sky-500 p-16 sm:col-span-2'>2</div>
-          <div className='rounded-lg bg-sky-500 p-16'>3</div>
-          <div className='rounded-lg bg-sky-500 p-16 sm:col-span-2'>4</div>
-          <div className='rounded-lg bg-sky-500 p-16'>5</div>
-          <div className='rounded-lg bg-sky-500 p-16'>6</div>
+          <div
+            id='one'
+            className='relative rounded-lg bg-white p-16 sm:row-span-2'
+          >
+            <h4 className='absolute top-2 left-2 text-xl font-semibold'>
+              Profile
+            </h4>
+          </div>
+          <div id='two' className='rounded-lg bg-sky-500 p-16 sm:col-span-2'>
+            2
+          </div>
+          <div id='three' className='rounded-lg bg-sky-500 p-16'>
+            3
+          </div>
+          <div id='four' className='rounded-lg bg-sky-500 p-16 sm:col-span-2'>
+            4
+          </div>
+          <div id='five' className='rounded-lg bg-sky-500 p-16'>
+            5
+          </div>
+          <div id='six' className='rounded-lg bg-sky-500 p-16'>
+            6
+          </div>
         </div>
       </div>
     </>

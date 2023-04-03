@@ -4,6 +4,7 @@ import { useGetUsersQuery } from './usersApiSlice'
 import { memo } from 'react'
 import Modal from '../../components/Modal'
 import { useState } from 'react'
+import { AiOutlineClose, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 
 const User = ({ userId }) => {
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ const User = ({ userId }) => {
               className='inline-flex rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900'
               onClick={() => setIsOpen(false)}
             >
-              x
+              <AiOutlineClose />
             </button>
           </div>
           <p>
@@ -59,18 +60,20 @@ const User = ({ userId }) => {
         >
           <td className='px-6 py-3 font-medium text-black'>{user.email}</td>
           <td className='px-6 py-3 font-medium text-black'>{user.role}</td>
-          <td className='whitespace-nowrap px-6 py-3 font-medium'>
+          <td className='flex whitespace-nowrap px-6 py-3 font-medium'>
             <button
               onClick={handleEdit}
-              className='rounded-lg bg-blue-700 px-5 py-2.5 text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300'
+              className='flex items-center justify-center rounded-lg bg-blue-700 px-4 py-2 text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300'
             >
+              <AiOutlineEdit className='mr-1' />
               Edit
             </button>
             <button
               onClick={() => setIsOpen(true)}
-              className='ml-2 rounded-lg bg-red-700 px-5 py-2.5 text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300'
+              className='ml-2 flex items-center justify-center rounded-lg bg-red-700 px-5 py-2.5 text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300'
               disabled={isLoading}
             >
+              <AiOutlineDelete className='mr-1' />
               Delete
             </button>
           </td>

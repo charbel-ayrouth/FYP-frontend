@@ -29,7 +29,7 @@ const NewUserForm = () => {
   })
 
   return (
-    <div className='mx-auto flex flex-col items-center justify-center bg-gray-50'>
+    <div className='mx-auto flex flex-col items-center justify-center'>
       <form
         onSubmit={formik.handleSubmit}
         className='w-5/6 space-y-4 rounded-lg bg-white px-6 py-8 shadow-lg sm:w-96 md:space-y-6'

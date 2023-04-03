@@ -22,6 +22,12 @@ const NotAuthorized = () => {
           >
             Go Back
           </button>
+          <button
+            onClick={() => navigate('/')}
+            className='my-4 ml-2  rounded-lg border border-primary bg-white px-5 py-2.5 text-center font-medium text-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-4 focus:ring-primaryLight'
+          >
+            Home
+          </button>
         </div>
       </div>
     </section>

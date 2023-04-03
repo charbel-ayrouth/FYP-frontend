@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSendLogoutMutation } from '../../features/auth/authApiSlice'
 import { FiMoreVertical } from 'react-icons/fi'
+import { AiOutlineHome } from 'react-icons/ai'
 
 const DashHeader = () => {
   const navigate = useNavigate()
@@ -51,20 +52,17 @@ const DashHeader = () => {
           <div className='flex items-center justify-between'>
             {/* Logo */}
             <div className='text-2xl font-bold text-primary'>FYP</div>
+            {/* Page Title */}
+            <h4 className=' text-xl font-semibold'>Home</h4>
             {/* Menu Items */}
-            <div className='hidden space-x-6 font-heading font-semibold md:flex md:items-center'>
+            <div className='flex items-center space-x-6 font-heading font-semibold'>
               <Link className='transform transition-colors duration-300 hover:cursor-pointer hover:text-primary'>
-                Home
+                <AiOutlineHome className='text-2xl' />
               </Link>
-              <Link className='transform transition-colors duration-300 hover:cursor-pointer hover:text-primary'>
-                Features
-              </Link>
-              <Link className='transform transition-colors duration-300 hover:cursor-pointer hover:text-primary'>
-                About
-              </Link>
+              {/* More */}
               <div className='relative' ref={dropdownRef}>
                 <FiMoreVertical
-                  className='cursor-pointer'
+                  className='cursor-pointer text-2xl'
                   onClick={toggleDropdown}
                 />
                 <div
@@ -82,58 +80,8 @@ const DashHeader = () => {
                   </Link>
                 </div>
               </div>
+              {/* End More */}
             </div>
-            {/* Hamburger Icon */}
-            <button
-              className={`hamburger focus:outline-none md:hidden ${
-                open ? 'open' : ''
-              }`}
-              id='menu-btn'
-              onClick={() => setOpen((prevState) => !prevState)}
-            >
-              <span className='hamburger-top'></span>
-              <span className='hamburger-middle'></span>
-              <span className='hamburger-bottom'></span>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <div className='md:hidden'>
-          <div
-            className={`${
-              open
-                ? ' translate-x-0 opacity-100'
-                : '-translate-x-full opacity-0'
-            } absolute top-16 flex w-full flex-col items-center self-end bg-white font-heading font-semibold shadow-lg transition-all duration-300 ease-in-out sm:self-center`}
-          >
-            <Link
-              className='w-full border-b-2 border-primaryDark py-5 text-center'
-              onClick={() => setOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              className='w-full border-b-2 border-primaryDark py-5 text-center'
-              onClick={() => setOpen(false)}
-            >
-              Features
-            </Link>
-            <Link
-              className='w-full border-b-2 border-primaryDark py-5 text-center'
-              onClick={() => setOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              className='w-full border-b-2 border-primaryDark py-5 text-center'
-              onClick={() => {
-                logoutHandler()
-                setOpen(false)
-              }}
-            >
-              Logout
-            </Link>
           </div>
         </div>
       </nav>

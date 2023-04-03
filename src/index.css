@@ -85,3 +85,10 @@
 .open .hamburger-bottom {
   transform: rotate(-45deg) translateY(6px) translate(-6px);
 }
+
+#one {
+  /* background-image: url('./assets/svg/profile.svg'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

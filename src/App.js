@@ -22,8 +22,8 @@ import NewDomainForm from './features/domains/NewDomainForm'
 import AuthType from './features/auth/AuthType'
 import SupervisorLanding from './components/Supervisor/SupervisorLanding'
 import NotAuthorized from './components/NotAuthorized'
-import AddTopics from './features/topics/Supervisor/AddTopics'
 import NotFound from './components/NotFound'
+import AddTopics from './features/topics/Supervisor/AddTopocis'
 
 function App() {
   useTitle('FYP')
@@ -34,8 +34,9 @@ function App() {
 
         <Route path='401' element={<NotAuthorized />} />
 
-        <Route path='login' element={<PersistLogin />}>
-          <Route index element={<Login />} />
+        <Route path='login' element={<Login />} />
+
+        <Route element={<PersistLogin />}>
           <Route path='auth' element={<AuthType />} />
         </Route>
 

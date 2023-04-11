@@ -4,20 +4,16 @@ import User from './User'
 import { useNavigate } from 'react-router-dom'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import { AiOutlineUserAdd } from 'react-icons/ai'
+import TableFooter from '../../components/Admin/TableFooter'
 
 const UsersList = () => {
   const navigate = useNavigate()
 
-  const [pageNumber, setPageNumber] = useState(0)
-  const [totalPages, setTotalPages] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(3)
 
-  const goToPrevious = () => {
-    setPageNumber(Math.max(0, pageNumber - 1))
-  }
-
-  const goToNext = () => {
-    setPageNumber(Math.min(totalPages - 1, pageNumber + 1))
-  }
+  const lastItemIndex = currentPage * itemsPerPage
+  const firstItemIndex = lastItemIndex - itemsPerPage
 
   const {
     data: users,
@@ -25,7 +21,7 @@ const UsersList = () => {
     isSuccess,
     isError,
     error,
-  } = useGetUsersQuery(pageNumber, 'usersList', {
+  } = useGetUsersQuery('usersList', {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
@@ -40,9 +36,7 @@ const UsersList = () => {
   if (isSuccess) {
     const { ids } = users
 
-    const tableContent = ids?.length
-      ? ids.map((userId) => <User key={userId} userId={userId} />)
-      : null
+    const currentItems = ids.slice(firstItemIndex, lastItemIndex)
 
     content = (
       <div className='mx-auto w-11/12 overflow-x-auto rounded-lg bg-gray-50 shadow-lg lg:w-2/3'>
@@ -81,8 +75,23 @@ const UsersList = () => {
                 </th>
               </tr>
             </thead>
-            <tbody>{tableContent}</tbody>
+            <tbody>
+              {ids?.length
+                ? currentItems.map((userId) => (
+                    <User key={userId} userId={userId} />
+                  ))
+                : null}
+            </tbody>
           </table>
+          {/* Pagination */}
+          <TableFooter
+            totalItems={ids.length}
+            itemsPerPage={itemsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            lastItemIndex={lastItemIndex}
+            firstItemIndex={firstItemIndex}
+          />
         </div>
       </div>
     )

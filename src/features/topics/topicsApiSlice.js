@@ -68,14 +68,13 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
     addTopicsToUser: builder.mutation({
       query(data) {
         const { id, ...body } = data
-        console.log(body)
         return {
           url: `/topics/user/${id}`,
           method: 'POST',
           body,
         }
       },
-      invalidatesTags: [{ type: 'Topic', id: 'LIST' }],
+      // invalidatesTags: [{ type: 'Topic', id: 'LIST' }],
     }),
 
     //get topics of user

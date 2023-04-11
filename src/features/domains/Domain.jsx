@@ -25,7 +25,7 @@ const Domain = ({ domainId }) => {
       <tr className='border-b bg-gray-50'>
         <td className='px-6 py-3 font-medium text-black'>{domain.title}</td>
         <td className='px-6 py-3 font-medium text-black'>{domain.example}</td>
-        <td className='whitespace-nowrap px-6 py-3 font-medium'>
+        <td className='flex whitespace-nowrap px-6 py-3 font-medium'>
           <button
             onClick={handleEdit}
             className='flex items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300'

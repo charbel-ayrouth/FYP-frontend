@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useGetTopicsQuery } from './topicsApiSlice'
 import Topic from './Topic'
 import { useNavigate } from 'react-router-dom'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import { AiOutlineUserAdd } from 'react-icons/ai'
+import TableFooter from '../../components/Admin/TableFooter'
 
 const TopicsList = () => {
   const navigate = useNavigate()
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(3)
+
+  const lastItemIndex = currentPage * itemsPerPage
+  const firstItemIndex = lastItemIndex - itemsPerPage
 
   const {
     data: topics,
@@ -29,9 +36,11 @@ const TopicsList = () => {
   if (isSuccess) {
     const { ids } = topics
 
+    const currentItems = ids.slice(firstItemIndex, lastItemIndex)
+
     const tableContent =
       ids?.length !== 0 &&
-      ids.map((topicId) => <Topic key={topicId} topicId={topicId} />)
+      currentItems.map((topicId) => <Topic key={topicId} topicId={topicId} />)
 
     content = (
       <div className='mx-auto mt-12 w-11/12 overflow-x-auto rounded-lg shadow-lg lg:w-2/3'>
@@ -67,6 +76,14 @@ const TopicsList = () => {
             </thead>
             <tbody>{tableContent}</tbody>
           </table>
+          <TableFooter
+            totalItems={ids.length}
+            itemsPerPage={itemsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            lastItemIndex={lastItemIndex}
+            firstItemIndex={firstItemIndex}
+          />
         </div>
       </div>
     )

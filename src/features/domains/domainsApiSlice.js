@@ -66,7 +66,7 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, arg) => [{ type: 'Domain', id: arg.id }],
     }),
 
-    // add domains to user
+    // add or update domains to user
     addDomainsToUser: builder.mutation({
       query(data) {
         const { id, ...body } = data
@@ -76,20 +76,11 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
           body,
         }
       },
-      invalidatesTags: [{ type: 'Domain', id: 'LIST' }],
     }),
 
-    // update domains for user
-    updateDomainsForUser: builder.mutation({
-      query(data) {
-        const { id, ...body } = data
-        return {
-          url: `/domains/user/${id}`,
-          method: 'PATCH',
-          body,
-        }
-      },
-      invalidatesTags: [{ type: 'Domain', id: 'LIST' }],
+    // get domains of user
+    getDomainsOfUser: builder.query({
+      query: (userId) => `/domains/user/${userId}`,
     }),
   }),
 })
@@ -100,7 +91,7 @@ export const {
   useDeleteDomainMutation,
   useUpdateDomainMutation,
   useAddDomainsToUserMutation,
-  useUpdateDomainsForUserMutation,
+  useGetDomainsOfUserQuery,
 } = domainsApiSlice
 
 // export const selectDomainsResult = domainsApiSlice.endpoints.getDomains.select()

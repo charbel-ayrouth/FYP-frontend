@@ -43,7 +43,9 @@ const TableFooter = ({
             <li key={index}>
               <button
                 onClick={() => setCurrentPage(page)}
-                className='flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700'
+                className={`flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 ${
+                  page === currentPage ? 'bg-blue-100 text-blue-500' : ''
+                }`}
               >
                 {page}
               </button>

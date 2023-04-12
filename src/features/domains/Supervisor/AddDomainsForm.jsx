@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import useAuth from '../../../hooks/useAuth'
-import {
-  useGetTopicsOfUserQuery,
-  useAddTopicsToUserMutation,
-} from '../topicsApiSlice'
 import LoadingSpinner from '../../../components/LoadingSpinner'
 import { FaCheck } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import {
+  useGetDomainsOfUserQuery,
+  useAddDomainsToUserMutation,
+} from '../domainsApiSlice'
 
-const AddTopicsForm = ({ ids, entities }) => {
+const AddDomainsForm = ({ ids, entities }) => {
   const { id } = useAuth()
   const navigate = useNavigate()
 
-  const [selectedTopics, setSelectedTopics] = useState([])
+  const [selectedDomains, setSelectedDomains] = useState([])
 
   const handleSelect = (id) => {
-    if (selectedTopics.includes(id)) {
-      setSelectedTopics((prevState) => prevState.filter((item) => item !== id))
+    if (selectedDomains.includes(id)) {
+      setSelectedDomains((prevState) => prevState.filter((item) => item !== id))
     } else {
-      setSelectedTopics((prevState) => [...prevState, id])
+      setSelectedDomains((prevState) => [...prevState, id])
     }
   }
 
   const { data, isError, isLoading, error, isSuccess } =
-    useGetTopicsOfUserQuery(id)
+    useGetDomainsOfUserQuery(id)
 
   const [
-    addNewTopicToUser,
+    addNewDomainToUser,
     { isSuccess: isSuccessSubmiting, isLoading: isLoadingSubmiting },
-  ] = useAddTopicsToUserMutation()
+  ] = useAddDomainsToUserMutation()
 
   useEffect(() => {
     if (isSuccess) {
-      setSelectedTopics(data)
+      setSelectedDomains(data)
     }
     if (isSuccessSubmiting) {
       navigate('/supervisor')
@@ -49,10 +49,10 @@ const AddTopicsForm = ({ ids, entities }) => {
     content = (
       <div>
         <h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
-          Choose Your Topics
+          Choose Your Domains
         </h2>
         <p className='mt-4 max-w-2xl text-xl text-gray-500'>
-          Select the topics that you're most interested in supervising.
+          Select the domains that you're most interested in supervising.
         </p>
         <div className='mx-auto mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3'>
           {ids.map((id) => (
@@ -60,14 +60,14 @@ const AddTopicsForm = ({ ids, entities }) => {
               key={id}
               onClick={() => handleSelect(id)}
               className={`${
-                selectedTopics.includes(id) ? 'bg-indigo-50 ' : 'bg-white '
+                selectedDomains.includes(id) ? 'bg-indigo-50 ' : 'bg-white '
               } cursor-pointer rounded-lg border shadow-2xl`}
             >
               <div className='flex items-center justify-between px-4 py-4'>
                 <div className='text-lg font-medium text-gray-900'>
                   {entities[id].title}
                 </div>
-                {selectedTopics.includes(id) && (
+                {selectedDomains.includes(id) && (
                   <div className='flex-shrink-0'>
                     <FaCheck className='text-green-400' />
                   </div>
@@ -78,7 +78,7 @@ const AddTopicsForm = ({ ids, entities }) => {
         </div>
         <div className='mt-10 flex gap-5'>
           <button
-            onClick={() => addNewTopicToUser({ id, selectedTopics })}
+            onClick={() => addNewDomainToUser({ id, selectedDomains })}
             className='rounded-lg bg-primary py-2 px-4 text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
             disabled={isLoadingSubmiting}
           >
@@ -98,4 +98,4 @@ const AddTopicsForm = ({ ids, entities }) => {
   }
 }
 
-export default AddTopicsForm
+export default AddDomainsForm

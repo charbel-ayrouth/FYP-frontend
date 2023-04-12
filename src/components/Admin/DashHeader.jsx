@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSendLogoutMutation } from '../../features/auth/authApiSlice'
-import { FiMoreVertical } from 'react-icons/fi'
-import { AiOutlineHome } from 'react-icons/ai'
+import { FiMoreVertical, FiChevronLeft, FiHome } from 'react-icons/fi'
 
 const DashHeader = () => {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
-  const [open, setOpen] = useState(false)
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
   const dropdownRef = useRef(null)
@@ -30,62 +28,71 @@ const DashHeader = () => {
 
   useEffect(() => {
     if (isSuccess) navigate('/')
-    if (screenWidth > 767) setOpen(false)
 
-    const changeWidth = () => {
-      setScreenWidth(window.innerWidth)
-    }
-
-    window.addEventListener('resize', changeWidth)
     document.addEventListener('click', handleClickOutside)
 
     return () => {
-      window.removeEventListener('resize', changeWidth)
       document.removeEventListener('click', handleClickOutside)
     }
-  }, [navigate, screenWidth, isSuccess])
+  }, [navigate, isSuccess])
+
+  function capitalizeFirstLetter(str) {
+    return `${str.charAt(0).toUpperCase() + str.slice(1)} Page`
+  }
 
   return (
-    <>
-      <nav className='sticky top-0 z-10 mb-16 bg-white shadow-md'>
-        <div className='container mx-auto p-4 xl:px-16'>
-          <div className='flex items-center justify-between'>
-            {/* Logo */}
-            <div className='text-2xl font-bold text-primary'>FYP</div>
-            {/* Page Title */}
-            <h4 className=' text-xl font-semibold'>Home</h4>
-            {/* Menu Items */}
-            <div className='flex items-center space-x-6 font-heading font-semibold'>
-              <Link className='transform transition-colors duration-300 hover:cursor-pointer hover:text-primary'>
-                <AiOutlineHome className='text-2xl' />
-              </Link>
-              {/* More */}
-              <div className='relative' ref={dropdownRef}>
-                <FiMoreVertical
-                  className='cursor-pointer text-2xl'
-                  onClick={toggleDropdown}
-                />
-                <div
-                  className={`absolute top-10 right-0 w-48 rounded-md bg-white py-2 shadow-lg transition duration-300 ease-in-out ${
-                    isDropDownOpen
-                      ? 'translate-y-0 opacity-100'
-                      : '-translate-y-5 opacity-0'
-                  }`}
+    <nav className='sticky top-0 z-10 bg-white shadow-md'>
+      <div className='container mx-auto p-4 xl:px-16'>
+        <div className='flex items-center justify-between'>
+          {/* Logo */}
+          <div className='hidden text-2xl font-bold text-primary sm:block'>
+            FYP
+          </div>
+
+          <FiChevronLeft
+            className='cursor-pointer text-2xl sm:hidden'
+            onClick={() => navigate(-1)}
+          />
+
+          {/* Page Title */}
+          <h4 className=' text-xl font-semibold'>
+            {pathname.split('/')[2]
+              ? capitalizeFirstLetter(pathname.split('/')[2])
+              : 'Home Page'}
+          </h4>
+          <div className='flex items-center space-x-6 font-heading font-semibold'>
+            {/* Home Icon */}
+            <FiHome
+              className='transform cursor-pointer text-2xl transition-colors duration-300 hover:text-primary'
+              onClick={() => navigate(`/${pathname.split('/')[1]}`)}
+            />
+
+            {/* More Icon */}
+            <div className='relative' ref={dropdownRef}>
+              <FiMoreVertical
+                className='cursor-pointer text-2xl duration-300 hover:text-primary'
+                onClick={toggleDropdown}
+              />
+              <div
+                className={`absolute top-10 right-0 w-48 rounded-md bg-white py-2 shadow-lg transition duration-300 ease-in-out ${
+                  isDropDownOpen
+                    ? 'translate-y-0 opacity-100'
+                    : '-translate-y-5 opacity-0'
+                }`}
+              >
+                <Link
+                  onClick={logoutHandler}
+                  className='block transform px-4 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-100 hover:text-primary'
                 >
-                  <Link
-                    onClick={logoutHandler}
-                    className='block transform px-4 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-100 hover:text-primary'
-                  >
-                    Logout
-                  </Link>
-                </div>
+                  Logout
+                </Link>
               </div>
-              {/* End More */}
             </div>
+            {/* End More */}
           </div>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   )
 }
 

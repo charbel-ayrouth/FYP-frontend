@@ -46,7 +46,7 @@ const TopicsList = () => {
       <div className='mx-auto mt-12 w-11/12 overflow-x-auto rounded-lg shadow-lg lg:w-2/3'>
         <div>
           <div className='overflow-hidden rounded-t-lg'>
-            <div className='flex-row items-center justify-between space-y-3 bg-gray-100 p-4 sm:flex sm:space-y-0 sm:space-x-4'>
+            <div className='flex-row items-center justify-between space-y-3 border-b bg-gray-50 p-4 sm:flex sm:space-y-0 sm:space-x-4'>
               <div>
                 <h5 className='font-bold'>Topics</h5>
                 <p className='font-light'>

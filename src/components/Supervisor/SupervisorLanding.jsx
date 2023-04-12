@@ -24,11 +24,12 @@ const SupervisorLanding = () => {
       <Modal open={isOpen}>
         <ProfileForm id={id} closeHandler={closeHandler} />
       </Modal>
-      <div className='container mx-auto mb-32 bg-primaryLight px-4 xl:px-40'>
+      <div className='px-4 xl:px-40'>
+        <h1 className='mb-12 text-3xl font-bold'>Welcome back, {username}</h1>
         <div className='grid grid-flow-row-dense gap-4 md:grid-cols-2 lg:grid-cols-3'>
           <div
             id='one'
-            className='relative rounded-lg bg-white p-16 sm:row-span-2'
+            className='relative rounded-lg bg-sky-500 p-16 sm:row-span-2'
           >
             <h4 className='absolute top-2 left-2 text-xl font-semibold'>
               Profile

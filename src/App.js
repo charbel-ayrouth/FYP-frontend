@@ -23,7 +23,8 @@ import AuthType from './features/auth/AuthType'
 import SupervisorLanding from './components/Supervisor/SupervisorLanding'
 import NotAuthorized from './components/NotAuthorized'
 import NotFound from './components/NotFound'
-import AddTopics from './features/topics/Supervisor/AddTopocis'
+import AddTopics from './features/topics/Supervisor/AddTopics'
+import AddDomains from './features/domains/Supervisor/AddDomains'
 
 function App() {
   useTitle('FYP')
@@ -78,9 +79,8 @@ function App() {
                 <Route path='supervisor' element={<DashLayout />}>
                   <Route index element={<SupervisorLanding />} />
 
-                  <Route path='topics'>
-                    <Route index element={<AddTopics />} />
-                  </Route>
+                  <Route path='topics' element={<AddTopics />} />
+                  <Route path='domains' element={<AddDomains />} />
                 </Route>
               </Route>
               {/* End Supervisor Supervisor */}

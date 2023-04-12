@@ -11,6 +11,7 @@ import { ROLES } from '../../config/roles'
 import { selectCurrentToken } from './authSlice'
 import { useRefreshMutation } from './authApiSlice'
 import LoadingSpinner from '../../components/LoadingSpinner'
+import BackgroundSVG from '../../assets/svg/blob-scene-haikei.svg'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -45,12 +46,6 @@ const Login = () => {
     return () => (effectRan.current = true)
     // eslint-disable-next-line
   }, [])
-
-  // useEffect(() => {
-  //   if (role === ROLES.Admin) navigate('/admin')
-  //   if (role === ROLES.Supervisor) navigate('/supervisor')
-  //   if (role === ROLES.Student) navigate('/student')
-  // }, [role, navigate])
 
   const [persist, setPersist] = usePersist()
   const [errorMessage, setErrorMessage] = useState('')
@@ -90,7 +85,10 @@ const Login = () => {
 
   if (isError || isUninitialized) {
     content = (
-      <section className='bg-gray-50'>
+      <section
+        className='aspect-auto w-full bg-cover bg-center bg-no-repeat'
+        style={{ backgroundImage: `url(${BackgroundSVG})` }}
+      >
         <div className='mx-auto flex h-screen flex-col items-center justify-center px-6 py-8'>
           {/* Form container*/}
           <div className='w-full rounded-lg bg-white shadow-2xl sm:max-w-md'>

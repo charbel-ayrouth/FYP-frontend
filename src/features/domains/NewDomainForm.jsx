@@ -31,14 +31,14 @@ const NewDomainForm = () => {
     <div className='mx-auto flex flex-col items-center justify-center'>
       <form
         onSubmit={formik.handleSubmit}
-        className='bg-blue-50 px-6 py-8 rounded-lg  shadow-lg w-5/6 sm:w-96'
+        className='w-5/6 rounded-lg border bg-white  px-6 py-8 shadow-2xl sm:w-96'
       >
-        <h2 className=' text-xl font-bold md:text-2xl mb-6'>Create topic</h2>
+        <h2 className='mb-6 text-xl font-bold md:text-2xl'>Create Domain</h2>
 
         <div className='mb-6'>
           <label
             htmlFor='title'
-            className='block mb-2 font-medium text-gray-900'
+            className='mb-2 block text-sm font-medium text-gray-900 md:text-base'
           >
             Title
           </label>
@@ -47,7 +47,7 @@ const NewDomainForm = () => {
             type='title'
             {...formik.getFieldProps('title')}
             autoComplete='off'
-            className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 w-full'
+            className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-500 focus:ring-blue-500'
           />
           {formik.touched.title && formik.errors.title ? (
             <p className='text-red-600'>{formik.errors.title}</p>
@@ -57,7 +57,7 @@ const NewDomainForm = () => {
         <div className='mb-6'>
           <label
             htmlFor='example'
-            className='block mb-2 font-medium text-gray-900'
+            className='mb-2 block text-sm font-medium text-gray-900 md:text-base'
           >
             Example
           </label>
@@ -66,7 +66,7 @@ const NewDomainForm = () => {
             type='example'
             {...formik.getFieldProps('example')}
             autoComplete='off'
-            className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 w-full'
+            className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-500 focus:ring-blue-500'
           />
           {formik.touched.example && formik.errors.example ? (
             <p className='text-red-600'>{formik.errors.example}</p>
@@ -75,13 +75,20 @@ const NewDomainForm = () => {
 
         <button
           type='submit'
-          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center  w-full'
+          className='w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center font-medium text-white  hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300'
           disabled={formik.isSubmitting || isLoading}
         >
           Submit
         </button>
+        <button
+          type='button'
+          className='mt-2 w-full rounded-lg border border-blue-700 bg-white px-5 py-2.5 text-center font-medium text-blue-700 focus:outline-none focus:ring-4  focus:ring-blue-300'
+          onClick={() => navigate(-1)}
+        >
+          Cancel
+        </button>
       </form>
-      {isError && <p className='text-red-600 mt-6'>{error?.data?.message}</p>}
+      {isError && <p className='mt-6 text-red-600'>{error?.data?.message}</p>}
     </div>
   )
 }

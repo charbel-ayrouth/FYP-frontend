@@ -9,7 +9,7 @@ const DashLayout = () => {
     <>
       <DashHeader />
       <div
-        className='h-screen bg-cover bg-center bg-no-repeat'
+        className='min-h-screen bg-cover bg-center bg-no-repeat'
         style={{ backgroundImage: `url(${BackgroundSVG})` }}
       >
         <div className='container mx-auto flex-grow p-4 xl:px-16'>

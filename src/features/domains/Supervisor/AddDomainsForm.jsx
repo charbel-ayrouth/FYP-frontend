@@ -61,9 +61,9 @@ const AddDomainsForm = ({ ids, entities }) => {
               onClick={() => handleSelect(id)}
               className={`${
                 selectedDomains.includes(id) ? 'bg-indigo-50 ' : 'bg-white '
-              } cursor-pointer rounded-lg border shadow-2xl`}
+              } cursor-pointer rounded-lg border px-4 py-4 shadow-2xl`}
             >
-              <div className='flex items-center justify-between px-4 py-4'>
+              <div className='flex items-center justify-between'>
                 <div className='text-lg font-medium text-gray-900'>
                   {entities[id].title}
                 </div>
@@ -73,6 +73,11 @@ const AddDomainsForm = ({ ids, entities }) => {
                   </div>
                 )}
               </div>
+              {entities[id].example && (
+                <p className='font-light text-gray-500'>
+                  {entities[id].example}
+                </p>
+              )}
             </div>
           ))}
         </div>

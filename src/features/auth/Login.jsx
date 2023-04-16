@@ -91,7 +91,7 @@ const Login = () => {
       >
         <div className='mx-auto flex h-screen flex-col items-center justify-center px-6 py-8'>
           {/* Form container*/}
-          <div className='w-full rounded-lg bg-white shadow-2xl sm:max-w-md'>
+          <div className='w-full rounded-lg border bg-white shadow-2xl sm:max-w-md'>
             <div className='space-y-4 p-6 sm:p-8 md:space-y-6'>
               <h2 className='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl'>
                 Sign In

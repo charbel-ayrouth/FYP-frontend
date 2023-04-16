@@ -25,6 +25,7 @@ import NotAuthorized from './components/NotAuthorized'
 import NotFound from './components/NotFound'
 import AddTopics from './features/topics/Supervisor/AddTopics'
 import AddDomains from './features/domains/Supervisor/AddDomains'
+import NotificationsList from './features/notifications/NotificationsList'
 
 function App() {
   useTitle('FYP')
@@ -81,6 +82,7 @@ function App() {
 
                   <Route path='topics' element={<AddTopics />} />
                   <Route path='domains' element={<AddDomains />} />
+                  <Route path='notifications' element={<NotificationsList />} />
                 </Route>
               </Route>
               {/* End Supervisor Supervisor */}

@@ -26,6 +26,7 @@ import NotFound from './components/NotFound'
 import AddTopics from './features/topics/Supervisor/AddTopics'
 import AddDomains from './features/domains/Supervisor/AddDomains'
 import NotificationsList from './features/notifications/NotificationsList'
+import SupervisorsList from './features/users/Student/SupervisorsList'
 
 function App() {
   useTitle('FYP')
@@ -86,6 +87,14 @@ function App() {
                 </Route>
               </Route>
               {/* End Supervisor Supervisor */}
+
+              {/* Start Student */}
+              <Route element={<RequireAuth allowedRoles={[ROLES.Student]} />}>
+                <Route path='student' element={<DashLayout />}>
+                  <Route index element={<SupervisorsList />} />
+                </Route>
+              </Route>
+              {/* End Student */}
             </Route>
           </Route>
         </Route>

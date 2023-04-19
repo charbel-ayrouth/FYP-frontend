@@ -6,7 +6,7 @@ import { useMarkNotificationAsReadMutation } from './notificationsApiSlice'
 const Notification = ({ notification, userId }) => {
   const [markNotificationAsRead, {}] = useMarkNotificationAsReadMutation()
 
-  const timeAgo = formatDistanceToNow(new Date(notification.createdAt), {
+  const timeAgo = formatDistanceToNow(new Date(notification.updatedAt), {
     addSuffix: true,
   })
 

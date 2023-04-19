@@ -1,6 +1,7 @@
 import React from 'react'
 import useAuth from '../../hooks/useAuth'
-import { useLocation, Navigate, useNavigate } from 'react-router-dom'
+import { useLocation, Navigate } from 'react-router-dom'
+import { ROLES } from '../../config/roles.js'
 
 const AuthType = () => {
   const location = useLocation()
@@ -8,13 +9,15 @@ const AuthType = () => {
   let content
 
   if (role) {
-    if (role === 'Admin') {
+    if (role === ROLES.Admin) {
       content = <Navigate to={'/admin'} state={{ from: location }} replace />
-    } else if (role === 'Supervisor') {
+    } else if (role === ROLES.Supervisor) {
       content = (
         <Navigate to={'/supervisor'} state={{ from: location }} replace />
       )
-    } else content = console.log('Student')
+    } else if (role === ROLES.Student) {
+      content = <Navigate to={'/student'} state={{ from: location }} replace />
+    }
   } else content = <Navigate to={'/login'} state={{ from: location }} replace />
   return content
 }

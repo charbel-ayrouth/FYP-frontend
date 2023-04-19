@@ -60,6 +60,10 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'User', id: arg.id }],
     }),
+    // get all supervisors
+    getAllSupervisors: builder.query({
+      query: () => '/users/supervisors',
+    }),
   }),
 })
 
@@ -68,6 +72,7 @@ export const {
   useAddNewUserMutation,
   useDeleteUserMutation,
   useUpdateUserMutation,
+  useGetAllSupervisorsQuery,
 } = usersApiSlice
 
 // returns the query result object

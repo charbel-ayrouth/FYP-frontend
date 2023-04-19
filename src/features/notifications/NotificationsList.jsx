@@ -55,14 +55,14 @@ const NotificationsList = () => {
   if (isSuccess || isSuccessRead) {
     const { ids, entities } = notifications
 
-    const SIX_HOURS = 6 * 60 * 60 * 1000
+    const TWO_DAYS = 48 * 60 * 60 * 1000
 
     const filteredIds = showAll
       ? ids
       : ids.filter(
           (id) =>
             new Date(entities[id].updatedAt).toISOString() >=
-            new Date(Date.now() - SIX_HOURS).toISOString()
+            new Date(Date.now() - TWO_DAYS).toISOString()
         )
 
     const currentItems = filteredIds.slice(firstItemIndex, lastItemIndex)
@@ -88,7 +88,7 @@ const NotificationsList = () => {
                 setShowAll((prevState) => !prevState)
               }}
             />
-            <p className='text-sm text-gray-600'>Last 6 hours</p>
+            <p className='text-sm text-gray-600'>Last 48 hours</p>
           </div>
         </div>
         <div className='flex flex-col'>

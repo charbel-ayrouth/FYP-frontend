@@ -2,7 +2,7 @@ import { useGetTopicsQuery } from '../topicsApiSlice'
 import LoadingSpinner from '../../../components/LoadingSpinner'
 import AddTopicsForm from './AddTopicsForm'
 
-const AddTopics = () => {
+const AddTopics = ({ handleNext }) => {
   const {
     data: topics,
     isLoading,
@@ -20,14 +20,20 @@ const AddTopics = () => {
   if (isLoading) return <LoadingSpinner />
 
   if (isError) {
-    console.log(error)
     return <p className='text-red-600'>{error?.data.message}</p>
   }
 
   if (isSuccess) {
     const { ids, entities } = topics
 
-    content = <AddTopicsForm ids={ids} entities={entities} />
+    content = (
+      <AddTopicsForm
+        ids={ids}
+        entities={entities}
+        handleNext={handleNext}
+        step={true}
+      />
+    )
 
     return content
   }

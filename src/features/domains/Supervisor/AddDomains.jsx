@@ -27,7 +27,7 @@ const AddDomains = () => {
   if (isSuccess) {
     const { ids, entities } = domains
 
-    content = <AddDomainsForm ids={ids} entities={entities} />
+    content = <AddDomainsForm ids={ids} entities={entities} step={true} />
 
     return content
   }

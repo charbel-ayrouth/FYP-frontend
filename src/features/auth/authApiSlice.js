@@ -49,8 +49,19 @@ export const authApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    // check if user completed account setup
+    accountSetup: builder.query({
+      query: ({ id }) => ({
+        url: `/users/${id}`,
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation, useSendLogoutMutation, useRefreshMutation } =
-  authApiSlice
+export const {
+  useLoginMutation,
+  useSendLogoutMutation,
+  useRefreshMutation,
+  useAccountSetupQuery,
+  useLazyAccountSetupQuery,
+} = authApiSlice

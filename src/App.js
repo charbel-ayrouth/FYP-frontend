@@ -26,7 +26,9 @@ import NotFound from './components/NotFound'
 import AddTopics from './features/topics/Supervisor/AddTopics'
 import AddDomains from './features/domains/Supervisor/AddDomains'
 import NotificationsList from './features/notifications/NotificationsList'
-import SupervisorsList from './features/users/Student/SupervisorsList'
+import SupervisorsList from './features/supervisors/Student/SupervisorsList'
+import StudentLanding from './components/Student/StudentLanding'
+import Stepper from './components/Stepper/Stepper.jsx'
 
 function App() {
   useTitle('FYP')
@@ -49,6 +51,11 @@ function App() {
             element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
           >
             <Route element={<Prefetch />}>
+              {/* Account Setup */}
+              <Route element={<DashLayout />}>
+                <Route path='account-setup' element={<Stepper />} />
+              </Route>
+              {/* Account Setup */}
               {/* Admin */}
               <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
                 <Route path='admin' element={<DashLayout />}>
@@ -91,7 +98,12 @@ function App() {
               {/* Start Student */}
               <Route element={<RequireAuth allowedRoles={[ROLES.Student]} />}>
                 <Route path='student' element={<DashLayout />}>
-                  <Route index element={<SupervisorsList />} />
+                  <Route index element={<StudentLanding />} />
+
+                  <Route path='connections' element={<SupervisorsList />} />
+                  <Route path='topics' element={<AddTopics />} />
+                  <Route path='domains' element={<AddDomains />} />
+                  <Route path='notifications' element={<NotificationsList />} />
                 </Route>
               </Route>
               {/* End Student */}

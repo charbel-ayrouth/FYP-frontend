@@ -7,10 +7,18 @@ import {
   useGetDomainsOfUserQuery,
   useAddDomainsToUserMutation,
 } from '../domainsApiSlice'
+import { ROLES } from '../../../config/roles'
+import { useLazyAccountSetupQuery } from '../../auth/authApiSlice'
 
-const AddDomainsForm = ({ ids, entities }) => {
-  const { id } = useAuth()
+const AddDomainsForm = ({ ids, entities, step }) => {
+  const { id, role } = useAuth()
   const navigate = useNavigate()
+
+  const minimized = role.charAt(0).toLowerCase() + role.slice(1)
+  const [isStep, setIsStep] = useState(step || false)
+  const [getData, { isSuccess: isSuccessCompleted }] = useLazyAccountSetupQuery(
+    { id }
+  )
 
   const [selectedDomains, setSelectedDomains] = useState([])
 
@@ -34,10 +42,25 @@ const AddDomainsForm = ({ ids, entities }) => {
     if (isSuccess) {
       setSelectedDomains(data)
     }
-    if (isSuccessSubmiting) {
-      navigate('/supervisor')
+    if (isSuccessSubmiting && isStep === false) {
     }
-  }, [isSuccess, data, isSuccessSubmiting, navigate])
+    if (isSuccessSubmiting && isStep === true) {
+      getData({ id })
+    }
+    if (isSuccessCompleted) {
+      navigate(`/${minimized}`)
+    }
+  }, [
+    isSuccess,
+    data,
+    isSuccessSubmiting,
+    navigate,
+    isStep,
+    getData,
+    minimized,
+    id,
+    isSuccessCompleted,
+  ])
 
   let content
 
@@ -51,9 +74,16 @@ const AddDomainsForm = ({ ids, entities }) => {
         <h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
           Choose Your Domains
         </h2>
-        <p className='mt-4 max-w-2xl text-xl text-gray-500'>
-          Select the domains that you're most interested in supervising.
-        </p>
+        {role === ROLES.Supervisor && (
+          <p className='mt-4 max-w-2xl text-xl text-gray-500'>
+            Select the domains that you're most interested in supervising.
+          </p>
+        )}
+        {role === ROLES.Student && (
+          <p className='mt-4 max-w-2xl text-xl text-gray-500'>
+            Select the domains that you're interested in learning more about.
+          </p>
+        )}
         <div className='mx-auto mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3'>
           {ids.map((id) => (
             <div
@@ -81,22 +111,32 @@ const AddDomainsForm = ({ ids, entities }) => {
             </div>
           ))}
         </div>
-        <div className='mt-10 flex gap-5'>
+        {isStep ? (
           <button
             onClick={() => addNewDomainToUser({ id, selectedDomains })}
-            className='rounded-lg bg-primary py-2 px-4 text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
+            className='mt-10 rounded-lg bg-primary py-2 px-4 text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
             disabled={isLoadingSubmiting}
           >
-            Save Selection
+            Submit
           </button>
-          <button
-            onClick={() => navigate(-1)}
-            className='rounded-lg border border-primary bg-white py-2 px-8 text-lg font-medium text-primary transition-all duration-500 hover:bg-primary hover:text-white focus:outline-none focus:ring-4'
-            disabled={isLoadingSubmiting}
-          >
-            Cancel
-          </button>
-        </div>
+        ) : (
+          <div className='mt-10 flex gap-5'>
+            <button
+              onClick={() => addNewDomainToUser({ id, selectedDomains })}
+              className='rounded-lg bg-primary py-2 px-4 text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
+              disabled={isLoadingSubmiting}
+            >
+              Save Selection
+            </button>
+            <button
+              onClick={() => navigate(-1)}
+              className='rounded-lg border border-primary bg-white py-2 px-8 text-lg font-medium text-primary transition-all duration-500 hover:bg-primary hover:text-white focus:outline-none focus:ring-4'
+              disabled={isLoadingSubmiting}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
     )
     return content

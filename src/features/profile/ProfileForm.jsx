@@ -3,8 +3,11 @@ import { useFormik } from 'formik'
 import { useUpdateProfileMutation } from './profileApiSlice'
 import { updateProfileSchema } from '../../config/validationSchemas'
 import { useRefreshMutation } from '../auth/authApiSlice'
+import useAuth from '../../hooks/useAuth'
 
-const ProfileForm = ({ closeHandler, id }) => {
+const ProfileForm = ({ handleNext }) => {
+  const { id } = useAuth()
+
   const [updateProfile, { isLoading, isSuccess, isError, error }] =
     useUpdateProfileMutation()
 
@@ -25,7 +28,7 @@ const ProfileForm = ({ closeHandler, id }) => {
         console.log(e)
       } finally {
         setSubmitting(false)
-        closeHandler()
+        handleNext()
       }
     },
   })
@@ -34,16 +37,15 @@ const ProfileForm = ({ closeHandler, id }) => {
     <>
       <form
         onSubmit={formik.handleSubmit}
-        className='w-5/6 space-y-4 bg-white sm:w-96 md:space-y-6'
+        className='mx-auto w-full max-w-md space-y-4'
       >
-        <h2 className='text-xl font-bold leading-tight tracking-tight md:text-2xl'>
-          Please complete your account setup
+        <h2 className='mb-6 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
+          Choose your username and password
         </h2>
-
         <div>
           <label
             htmlFor='username'
-            className='mb-2 block text-sm font-medium text-gray-900 md:text-base'
+            className='mb-1 block text-lg font-medium text-gray-900'
           >
             Username
           </label>
@@ -52,7 +54,8 @@ const ProfileForm = ({ closeHandler, id }) => {
             type='username'
             {...formik.getFieldProps('username')}
             autoComplete='off'
-            className='block w-full rounded-lg border border-gray-300 p-2.5 text-gray-900 focus:border-2 focus:border-primaryLight focus:outline-none'
+            placeholder='Enter your username'
+            className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-xl focus:border-2 focus:border-primaryLight focus:outline-none'
           />
           {formik.touched.username && formik.errors.username ? (
             <p className='text-red-600'>{formik.errors.username}</p>
@@ -62,7 +65,7 @@ const ProfileForm = ({ closeHandler, id }) => {
         <div>
           <label
             htmlFor='password'
-            className='mb-2 block text-sm font-medium text-gray-900 md:text-base'
+            className='mb-1 block text-lg font-medium text-gray-900'
           >
             Password
           </label>
@@ -70,8 +73,8 @@ const ProfileForm = ({ closeHandler, id }) => {
             id='password'
             type='password'
             {...formik.getFieldProps('password')}
-            className='block w-full rounded-lg  border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-2 focus:border-primaryLight focus:outline-none sm:text-sm'
-            placeholder='******'
+            className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-xl focus:border-2 focus:border-primaryLight focus:outline-none'
+            placeholder='Enter your password'
           />
           {formik.touched.password && formik.errors.password ? (
             <p className='text-red-600'>{formik.errors.password}</p>
@@ -81,7 +84,7 @@ const ProfileForm = ({ closeHandler, id }) => {
         <div>
           <label
             htmlFor='confirmPassword'
-            className='mb-2 block text-sm font-medium text-gray-900 md:text-base'
+            className='mb-1 block text-lg font-medium text-gray-900'
           >
             Confirm Password
           </label>
@@ -89,8 +92,8 @@ const ProfileForm = ({ closeHandler, id }) => {
             id='confirmPassword'
             type='Password'
             {...formik.getFieldProps('confirmPassword')}
-            className='block w-full rounded-lg  border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-2 focus:border-primaryLight focus:outline-none sm:text-sm'
-            placeholder='******'
+            className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-xl focus:border-2 focus:border-primaryLight focus:outline-none'
+            placeholder='Confirm your password'
           />
           {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
             <p className='text-red-600'>{formik.errors.confirmPassword}</p>
@@ -100,7 +103,7 @@ const ProfileForm = ({ closeHandler, id }) => {
         <div>
           <button
             type='submit'
-            className='mt-4 w-full rounded-lg bg-primary px-4 py-2 text-center text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4  focus:ring-primaryLight'
+            className='mt-4 w-full rounded-lg bg-primary px-4 py-2 text-center text-lg font-medium text-white shadow-xl hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
             disabled={formik.isSubmitting || isLoading}
           >
             Submit

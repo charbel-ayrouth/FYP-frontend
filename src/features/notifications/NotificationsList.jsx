@@ -143,8 +143,11 @@ const NotificationsList = () => {
             </li>
           </ul>
           <button
-            className='hover:bg-primary-dark ml-auto mt-4 flex items-center rounded-full bg-primary py-2 px-6 text-sm font-semibold text-white transition-colors duration-300 focus:outline-none'
+            className={`ml-auto mt-4 flex items-center rounded-full bg-primary py-2 px-6 text-sm font-semibold text-white transition-colors duration-300 hover:bg-primaryDark focus:outline-none ${
+              currentItems.length === 0 ? 'cursor-not-allowed' : ''
+            }`}
             onClick={() => readMutation(id)}
+            disabled={currentItems.length === 0}
           >
             Mark all as read
           </button>

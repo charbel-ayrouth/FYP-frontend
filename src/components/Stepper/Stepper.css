@@ -1,0 +1,84 @@
+:root {
+  --line-border-fill: #0077c8;
+  --line-border-empty: #e0e0e0;
+}
+
+.progress-container {
+  /* display: flex;
+  justify-content: space-between; */
+  position: relative;
+  /* margin-bottom: 30px;
+  max-width: 100%;
+  width: 350px; */
+}
+
+/* grey line */
+.progress-container::before {
+  /* we have to use content because ::before */
+  content: '';
+  background-color: var(--line-border-empty);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 95%;
+  z-index: 1;
+}
+
+.progress {
+  background-color: var(--line-border-fill);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  /* to make the middle of the line in the middle, instead of making the top of the line in the middle */
+  transform: translateY(-50%); /* move it up 50% */
+  height: 4px;
+  width: 0%;
+  z-index: 1;
+  transition: 0.4s ease;
+}
+
+.circle {
+  background-color: white;
+  color: #999;
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  /* to center content inside of it */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--line-border-empty);
+  transition: 0.4s ease;
+  z-index: 2;
+  font-size: 1.4rem;
+}
+
+.circle.active {
+  border-color: var(--line-border-fill);
+}
+
+.btn {
+  background-color: var(--line-border-fill);
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 30px;
+  font-size: 14px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.btn:disabled {
+  background-color: var(--line-border-empty);
+  cursor: not-allowed;
+}

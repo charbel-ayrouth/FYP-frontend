@@ -27,10 +27,10 @@ const Stepper = () => {
         return <ProfileForm handleNext={handleNext} />
         break
       case 2:
-        return <AddTopics handleNext={handleNext} />
+        return <AddTopics handleNext={handleNext} step={true} />
         break
       case 3:
-        return <AddDomains />
+        return <AddDomains step={true} />
         break
 
       default:
@@ -52,22 +52,6 @@ const Stepper = () => {
         ))}
       </div>
       {renderStep()}
-      <button
-        className='btn'
-        id='prev'
-        onClick={handlePrev}
-        disabled={currentActive === 1}
-      >
-        Prev
-      </button>
-      <button
-        className='btn'
-        id='next'
-        onClick={handleNext}
-        disabled={currentActive === circles.length}
-      >
-        Next
-      </button>
     </>
   )
 }

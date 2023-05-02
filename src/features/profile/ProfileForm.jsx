@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import { useUpdateProfileMutation } from './profileApiSlice'
 import { updateProfileSchema } from '../../config/validationSchemas'
 import { useRefreshMutation } from '../auth/authApiSlice'
 import useAuth from '../../hooks/useAuth'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 const ProfileForm = ({ handleNext }) => {
   const { id } = useAuth()
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false)
+
+  const showPasswordHandler = () => {
+    setIsPasswordVisible((prevState) => !prevState)
+  }
+
+  const showConfirmPasswordHandler = () => {
+    setIsConfirmPasswordVisible((prevState) => !prevState)
+  }
 
   const [updateProfile, { isLoading, isSuccess, isError, error }] =
     useUpdateProfileMutation()
@@ -55,7 +67,7 @@ const ProfileForm = ({ handleNext }) => {
             {...formik.getFieldProps('username')}
             autoComplete='off'
             placeholder='Enter your username'
-            className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-xl focus:border-2 focus:border-primaryLight focus:outline-none'
+            className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-lg focus:border-2 focus:border-primaryLight focus:outline-none'
           />
           {formik.touched.username && formik.errors.username ? (
             <p className='text-red-600'>{formik.errors.username}</p>
@@ -69,13 +81,26 @@ const ProfileForm = ({ handleNext }) => {
           >
             Password
           </label>
-          <input
-            id='password'
-            type='password'
-            {...formik.getFieldProps('password')}
-            className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-xl focus:border-2 focus:border-primaryLight focus:outline-none'
-            placeholder='Enter your password'
-          />
+          <div className='relative'>
+            {isPasswordVisible ? (
+              <AiOutlineEyeInvisible
+                className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                onClick={showPasswordHandler}
+              />
+            ) : (
+              <AiOutlineEye
+                className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                onClick={showPasswordHandler}
+              />
+            )}
+            <input
+              id='password'
+              type={isPasswordVisible ? 'text' : 'password'}
+              {...formik.getFieldProps('password')}
+              className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-lg focus:border-2 focus:border-primaryLight focus:outline-none'
+              placeholder='Enter your password'
+            />
+          </div>
           {formik.touched.password && formik.errors.password ? (
             <p className='text-red-600'>{formik.errors.password}</p>
           ) : null}
@@ -88,13 +113,26 @@ const ProfileForm = ({ handleNext }) => {
           >
             Confirm Password
           </label>
-          <input
-            id='confirmPassword'
-            type='Password'
-            {...formik.getFieldProps('confirmPassword')}
-            className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-xl focus:border-2 focus:border-primaryLight focus:outline-none'
-            placeholder='Confirm your password'
-          />
+          <div className='relative'>
+            {isConfirmPasswordVisible ? (
+              <AiOutlineEyeInvisible
+                className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                onClick={showConfirmPasswordHandler}
+              />
+            ) : (
+              <AiOutlineEye
+                className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                onClick={showConfirmPasswordHandler}
+              />
+            )}
+            <input
+              id='confirmPassword'
+              type={isConfirmPasswordVisible ? 'text' : 'password'}
+              {...formik.getFieldProps('confirmPassword')}
+              className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-lg focus:border-2 focus:border-primaryLight focus:outline-none'
+              placeholder='Confirm your password'
+            />
+          </div>
           {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
             <p className='text-red-600'>{formik.errors.confirmPassword}</p>
           ) : null}
@@ -103,7 +141,7 @@ const ProfileForm = ({ handleNext }) => {
         <div>
           <button
             type='submit'
-            className='mt-4 w-full rounded-lg bg-primary px-4 py-2 text-center text-lg font-medium text-white shadow-xl hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
+            className='mt-4 w-full rounded-lg bg-primary px-4 py-2 text-center text-lg font-medium text-white shadow-lg hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
             disabled={formik.isSubmitting || isLoading}
           >
             Submit

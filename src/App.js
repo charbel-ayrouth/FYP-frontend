@@ -29,6 +29,9 @@ import NotificationsList from './features/notifications/NotificationsList'
 import SupervisorsList from './features/supervisors/Student/SupervisorsList'
 import StudentLanding from './components/Student/StudentLanding'
 import Stepper from './components/Stepper/Stepper.jsx'
+import ForgetPassword from './features/auth/ForgetPassword'
+import ResetPassword from './features/auth/ResetPassword'
+import AuthLayout from './components/AuthLayout'
 
 function App() {
   useTitle('FYP')
@@ -39,7 +42,11 @@ function App() {
 
         <Route path='401' element={<NotAuthorized />} />
 
-        <Route path='login' element={<Login />} />
+        <Route element={<AuthLayout />}>
+          <Route path='login' element={<Login />} />
+          <Route path='forget-password' element={<ForgetPassword />} />
+          <Route path='reset-password/:token' element={<ResetPassword />} />
+        </Route>
 
         <Route element={<PersistLogin />}>
           <Route path='auth' element={<AuthType />} />

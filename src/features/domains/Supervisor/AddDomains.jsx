@@ -2,7 +2,7 @@ import AddDomainsForm from './AddDomainsForm'
 import LoadingSpinner from '../../../components/LoadingSpinner'
 import { useGetDomainsQuery } from '../domainsApiSlice'
 
-const AddDomains = () => {
+const AddDomains = ({ step }) => {
   const {
     data: domains,
     isLoading,
@@ -27,7 +27,7 @@ const AddDomains = () => {
   if (isSuccess) {
     const { ids, entities } = domains
 
-    content = <AddDomainsForm ids={ids} entities={entities} step={true} />
+    content = <AddDomainsForm ids={ids} entities={entities} step={step} />
 
     return content
   }

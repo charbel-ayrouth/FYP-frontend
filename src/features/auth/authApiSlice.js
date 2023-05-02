@@ -50,9 +50,28 @@ export const authApiSlice = apiSlice.injectEndpoints({
       },
     }),
     // check if user completed account setup
-    accountSetup: builder.query({
-      query: ({ id }) => ({
-        url: `/users/${id}`,
+    accountSetup: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/users/${id}`,
+          method: 'POST',
+        }
+      },
+    }),
+    // send email
+    forgetPassword: builder.mutation({
+      query: (email) => ({
+        url: `/auth/forget-password`,
+        method: 'POST',
+        body: { email },
+      }),
+    }),
+    // check token and change password
+    resetPassword: builder.mutation({
+      query: ({ token, newPassword }) => ({
+        url: `/auth/reset-password/${token}`,
+        method: 'POST',
+        body: { newPassword },
       }),
     }),
   }),
@@ -62,6 +81,7 @@ export const {
   useLoginMutation,
   useSendLogoutMutation,
   useRefreshMutation,
-  useAccountSetupQuery,
-  useLazyAccountSetupQuery,
+  useAccountSetupMutation,
+  useForgetPasswordMutation,
+  useResetPasswordMutation,
 } = authApiSlice

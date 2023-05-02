@@ -8,7 +8,10 @@ import {
   useAddDomainsToUserMutation,
 } from '../domainsApiSlice'
 import { ROLES } from '../../../config/roles'
-import { useLazyAccountSetupQuery } from '../../auth/authApiSlice'
+import {
+  useAccountSetupMutation,
+  useRefreshMutation,
+} from '../../auth/authApiSlice'
 
 const AddDomainsForm = ({ ids, entities, step }) => {
   const { id, role } = useAuth()
@@ -16,9 +19,9 @@ const AddDomainsForm = ({ ids, entities, step }) => {
 
   const minimized = role.charAt(0).toLowerCase() + role.slice(1)
   const [isStep, setIsStep] = useState(step || false)
-  const [getData, { isSuccess: isSuccessCompleted }] = useLazyAccountSetupQuery(
-    { id }
-  )
+  const [completeSetup, { isSuccess: isSuccessCompleted }] =
+    useAccountSetupMutation()
+  const [refresh, { isSuccess: isSuccessRefresh }] = useRefreshMutation()
 
   const [selectedDomains, setSelectedDomains] = useState([])
 
@@ -43,12 +46,13 @@ const AddDomainsForm = ({ ids, entities, step }) => {
       setSelectedDomains(data)
     }
     if (isSuccessSubmiting && isStep === false) {
+      navigate(`/${minimized}`)
     }
     if (isSuccessSubmiting && isStep === true) {
-      getData({ id })
+      completeSetup(id)
     }
     if (isSuccessCompleted) {
-      navigate(`/${minimized}`)
+      refresh()
     }
   }, [
     isSuccess,
@@ -56,11 +60,18 @@ const AddDomainsForm = ({ ids, entities, step }) => {
     isSuccessSubmiting,
     navigate,
     isStep,
-    getData,
+    completeSetup,
     minimized,
     id,
     isSuccessCompleted,
+    refresh,
   ])
+
+  useEffect(() => {
+    if (isSuccessRefresh) {
+      navigate(`/${minimized}`)
+    }
+  }, [isSuccessRefresh, navigate, minimized])
 
   let content
 

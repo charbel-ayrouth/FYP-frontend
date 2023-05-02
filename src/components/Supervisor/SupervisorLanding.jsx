@@ -1,28 +1,20 @@
 import useAuth from '../../hooks/useAuth'
 import SupervisorLandingPage from './SupervisorLandingPage'
-import { useAccountSetupQuery } from '../../features/auth/authApiSlice'
-import LoadingSpinner from '../LoadingSpinner'
 import { Navigate, useLocation } from 'react-router-dom'
 
 const SupervisorLanding = () => {
-  const { id } = useAuth()
+  const { setupComplete } = useAuth()
   const location = useLocation()
-
-  const { isError, isLoading, isSuccess } = useAccountSetupQuery({
-    id,
-  })
 
   let content
 
-  if (isLoading) content = <LoadingSpinner />
-
-  if (isError) {
+  if (setupComplete === false) {
     content = (
       <Navigate to={'/account-setup'} state={{ from: location }} replace />
     )
   }
 
-  if (isSuccess) {
+  if (setupComplete === true) {
     content = <SupervisorLandingPage />
   }
   return content

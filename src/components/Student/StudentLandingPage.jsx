@@ -1,8 +1,11 @@
-import React from 'react'
+import { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
+import { Link } from 'react-router-dom'
 
-const SupervisorLandingPage = () => {
-  const { username } = useAuth()
+const StudentLandingPage = () => {
+  const { username, id } = useAuth()
+
+  const [data, setData] = useState(id)
 
   return (
     <div className='px-4 xl:px-40'>
@@ -20,27 +23,40 @@ const SupervisorLandingPage = () => {
           id='two'
           className='relative rounded-lg bg-sky-500 p-16 sm:col-span-2'
         >
-          <h4 className='absolute top-2 left-2 text-xl font-semibold'>
-            Recommended
-          </h4>
+          <Link
+            to={'/student/connections'}
+            state={{ data: data }}
+            className='absolute top-2 left-2 text-xl font-semibold'
+          >
+            Recommended Supervisors
+          </Link>
         </div>
         <div id='three' className='relative rounded-lg bg-sky-500 p-16'>
-          <h4 className='absolute top-2 left-2 text-xl font-semibold'>
+          <Link
+            to={'/student/topics'}
+            className='absolute top-2 left-2 text-xl font-semibold'
+          >
             Topics
-          </h4>
+          </Link>
         </div>
         <div
           id='four'
           className='relative rounded-lg bg-sky-500 p-16 sm:col-span-2'
         >
-          <h4 className='absolute top-2 left-2 text-xl font-semibold'>
+          <Link
+            to={'/student/notifications'}
+            className='absolute top-2 left-2 text-xl font-semibold'
+          >
             Notifications
-          </h4>
+          </Link>
         </div>
         <div id='five' className='relative rounded-lg bg-sky-500 p-16'>
-          <h4 className='absolute top-2 left-2 text-xl font-semibold'>
+          <Link
+            to={'/student/domains'}
+            className='absolute top-2 left-2 text-xl font-semibold'
+          >
             Domains
-          </h4>
+          </Link>
         </div>
         <div id='six' className='relative rounded-lg bg-sky-500 p-16'>
           <h4 className='absolute top-2 left-2 text-xl font-semibold'>Help</h4>
@@ -50,4 +66,4 @@ const SupervisorLandingPage = () => {
   )
 }
 
-export default SupervisorLandingPage
+export default StudentLandingPage

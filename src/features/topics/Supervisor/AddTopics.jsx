@@ -2,7 +2,7 @@ import { useGetTopicsQuery } from '../topicsApiSlice'
 import LoadingSpinner from '../../../components/LoadingSpinner'
 import AddTopicsForm from './AddTopicsForm'
 
-const AddTopics = ({ handleNext }) => {
+const AddTopics = ({ handleNext, step }) => {
   const {
     data: topics,
     isLoading,
@@ -31,7 +31,7 @@ const AddTopics = ({ handleNext }) => {
         ids={ids}
         entities={entities}
         handleNext={handleNext}
-        step={true}
+        step={step}
       />
     )
 

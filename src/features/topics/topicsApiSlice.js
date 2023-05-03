@@ -64,6 +64,12 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, arg) => [{ type: 'Topic', id: arg.id }],
     }),
 
+    //get topics of user
+    getTopicsOfUser: builder.query({
+      query: (userId) => `/topics/user/${userId}`,
+      providesTags: ['SelectedTopics'],
+    }),
+
     // add topics to user
     addTopicsToUser: builder.mutation({
       query(data) {
@@ -74,12 +80,7 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
           body,
         }
       },
-      // invalidatesTags: [{ type: 'Topic', id: 'LIST' }],
-    }),
-
-    //get topics of user
-    getTopicsOfUser: builder.query({
-      query: (userId) => `/topics/user/${userId}`,
+      invalidatesTags: ['SelectedTopics'],
     }),
   }),
 })
@@ -90,7 +91,6 @@ export const {
   useUpdateTopicMutation,
   useDeleteTopicMutation,
   useAddTopicsToUserMutation,
-  useUpdateTopicsForUserMutation,
   useGetTopicsOfUserQuery,
 } = topicsApiSlice
 

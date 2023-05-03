@@ -32,6 +32,7 @@ import Stepper from './components/Stepper/Stepper.jsx'
 import ForgetPassword from './features/auth/ForgetPassword'
 import ResetPassword from './features/auth/ResetPassword'
 import AuthLayout from './components/AuthLayout'
+import EditDomainsUser from './features/domains/Supervisor/EditDomainsUser'
 
 function App() {
   useTitle('FYP')

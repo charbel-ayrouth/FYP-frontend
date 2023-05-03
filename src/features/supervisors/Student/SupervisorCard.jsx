@@ -1,11 +1,8 @@
 import { memo } from 'react'
 import useAuth from '../../../hooks/useAuth'
-import {
-  useGetSupervisorsQuery,
-  useSendConnectionRequestMutation,
-} from '../supervisorsApiSlice'
+import { useSendConnectionRequestMutation } from '../supervisorsApiSlice'
 
-const SupervisorCard = ({ supervisorId }) => {
+const SupervisorCard = ({ supervisor }) => {
   const { id } = useAuth()
 
   function getInitials(name) {
@@ -14,23 +11,19 @@ const SupervisorCard = ({ supervisorId }) => {
     return initials
   }
 
-  const { user } = useGetSupervisorsQuery('usersList', {
-    selectFromResult: ({ data }) => ({
-      user: data?.entities[supervisorId],
-    }),
-  })
-
   const [sendConnection, { isLoading, error, isError, isSuccess }] =
     useSendConnectionRequestMutation()
 
   const handleClick = () => {
+    let supervisorId = supervisor._id
     console.log('before')
     sendConnection({ supervisorId, studentId: id })
     console.log('after')
   }
 
-  if (user) {
-    const { username, connections, connectionRequest, topics, domains } = user
+  if (supervisor) {
+    const { username, connections, connectionRequest, topics, domains } =
+      supervisor
 
     const initials = getInitials(username)
     return (

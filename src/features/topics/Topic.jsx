@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { useDeleteTopicMutation, useGetTopicsQuery } from './topicsApiSlice'
 import { useNavigate } from 'react-router-dom'
-import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
+import { FiTrash, FiEdit } from 'react-icons/fi'
 
 const Topic = ({ topicId }) => {
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ const Topic = ({ topicId }) => {
             onClick={handleEdit}
             className='flex items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300'
           >
-            <AiOutlineEdit className='mr-1' />
+            <FiEdit className='mr-1' />
             Edit
           </button>
           <button
@@ -37,7 +37,7 @@ const Topic = ({ topicId }) => {
             className='ml-2 flex items-center justify-center rounded-lg bg-red-700 px-5 py-2.5 text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300'
             disabled={isLoading}
           >
-            <AiOutlineDelete className='mr-1' />
+            <FiTrash className='mr-1' />
             Delete
           </button>
         </td>

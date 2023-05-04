@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { userAdminSchema } from '../../config/validationSchemas'
 import { ROLES } from '../../config/roles'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 const NewUserForm = () => {
   const [addNewUser, { isLoading, isSuccess, isError, error }] =
@@ -89,7 +90,7 @@ const NewUserForm = () => {
             className='w-full rounded-lg bg-primary px-4 py-2 text-center text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4  focus:ring-primaryLight'
             disabled={formik.isSubmitting || isLoading}
           >
-            Submit
+            {isLoading ? <LoadingSpinner white={true} /> : 'Submit'}
           </button>
           <button
             type='button'

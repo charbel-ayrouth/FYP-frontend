@@ -61,12 +61,12 @@ const ForgetPassword = () => {
             <div className='relative'>
               {isPasswordVisible ? (
                 <AiOutlineEyeInvisible
-                  className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                  className='absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-400'
                   onClick={showPasswordHandler}
                 />
               ) : (
                 <AiOutlineEye
-                  className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                  className='absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-400'
                   onClick={showPasswordHandler}
                 />
               )}
@@ -93,12 +93,12 @@ const ForgetPassword = () => {
             <div className='relative'>
               {isConfirmPasswordVisible ? (
                 <AiOutlineEyeInvisible
-                  className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                  className='absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-400'
                   onClick={showConfirmPasswordHandler}
                 />
               ) : (
                 <AiOutlineEye
-                  className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                  className='absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-400'
                   onClick={showConfirmPasswordHandler}
                 />
               )}

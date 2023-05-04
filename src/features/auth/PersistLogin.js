@@ -49,7 +49,11 @@ const PersistLogin = () => {
   } else if (isLoading) {
     //persist: yes, token: no (refresh token will only load here)
     console.log('loading')
-    content = <LoadingSpinner />
+    content = (
+      <div className='p-4'>
+        <LoadingSpinner />
+      </div>
+    )
   } else if (isError) {
     //persist: yes, token: no
     console.log('error')

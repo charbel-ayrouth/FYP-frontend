@@ -3,6 +3,7 @@ import { useUpdateTopicMutation } from './topicsApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { topicSchema } from '../../config/validationSchemas'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 const EditTopicForm = ({ topic }) => {
   const navigate = useNavigate()
@@ -60,7 +61,7 @@ const EditTopicForm = ({ topic }) => {
           className='w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center font-medium text-white  hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300'
           disabled={formik.isSubmitting || isLoading}
         >
-          Submit
+          {isLoading ? <LoadingSpinner white={true} /> : 'Submit'}
         </button>
         <button
           type='button'

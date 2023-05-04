@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { ROLES } from '../../config/roles'
 import { useFormik } from 'formik'
 import { userAdminSchema } from '../../config/validationSchemas'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 const EditUserForm = ({ user }) => {
   const [updateUser, { isLoading, isSuccess, isError, error }] =
@@ -125,7 +126,7 @@ const EditUserForm = ({ user }) => {
             className='w-full rounded-lg bg-primary px-4 py-2 text-center text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4  focus:ring-primaryLight'
             disabled={formik.isSubmitting || isLoading}
           >
-            Update
+            {isLoading ? <LoadingSpinner white={true} /> : 'Update'}
           </button>
           <button
             type='button'

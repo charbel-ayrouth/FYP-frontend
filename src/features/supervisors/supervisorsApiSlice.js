@@ -2,10 +2,18 @@ import { apiSlice } from '../../app/api/apiSlice'
 
 export const supervisorsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // get all supervisors
-    getSupervisors: builder.query({
+    // get recomended supervisors
+    getRecommendedSupervisors: builder.query({
       query: ({ id }) => ({
         url: `/supervisors/recommended/${id}`,
+      }),
+      providesTags: ['Supervisor'],
+    }),
+
+    // get other supervisors
+    getOtherSupervisors: builder.query({
+      query: ({ id }) => ({
+        url: `/supervisors/other/${id}`,
       }),
       providesTags: ['Supervisor'],
     }),
@@ -43,8 +51,9 @@ export const supervisorsApiSlice = apiSlice.injectEndpoints({
 })
 
 export const {
-  useGetSupervisorsQuery,
+  useGetRecommendedSupervisorsQuery,
   useSendConnectionRequestMutation,
   useAcceptConnectionRequestMutation,
   useDeclineConnectionRequestMutation,
+  useGetOtherSupervisorsQuery,
 } = supervisorsApiSlice

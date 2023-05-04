@@ -4,7 +4,7 @@ import { useGetUsersQuery } from './usersApiSlice'
 import { memo } from 'react'
 import Modal from '../../components/Modal'
 import { useState } from 'react'
-import { AiOutlineClose, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
+import { FiTrash, FiEdit, FiX } from 'react-icons/fi'
 
 const User = ({ userId }) => {
   const navigate = useNavigate()
@@ -38,7 +38,7 @@ const User = ({ userId }) => {
               className='inline-flex rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900'
               onClick={() => setIsOpen(false)}
             >
-              <AiOutlineClose />
+              <FiX />
             </button>
           </div>
           <p>
@@ -65,7 +65,7 @@ const User = ({ userId }) => {
               onClick={handleEdit}
               className='flex items-center justify-center rounded-lg bg-blue-700 px-4 py-2 text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300'
             >
-              <AiOutlineEdit className='mr-1' />
+              <FiEdit className='mr-1' />
               Edit
             </button>
             <button
@@ -73,7 +73,7 @@ const User = ({ userId }) => {
               className='ml-2 flex items-center justify-center rounded-lg bg-red-700 px-5 py-2.5 text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300'
               disabled={isLoading}
             >
-              <AiOutlineDelete className='mr-1' />
+              <FiTrash className='mr-1' />
               Delete
             </button>
           </td>

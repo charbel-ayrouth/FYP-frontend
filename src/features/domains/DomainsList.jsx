@@ -3,14 +3,14 @@ import { useGetDomainsQuery } from './domainsApiSlice'
 import { useNavigate } from 'react-router-dom'
 import Domain from './Domain'
 import LoadingSpinner from '../../components/LoadingSpinner'
-import { AiOutlineUserAdd } from 'react-icons/ai'
+import { FiPlus } from 'react-icons/fi'
 import TableFooter from '../../components/Admin/TableFooter'
 
 const DomainsList = () => {
   const navigate = useNavigate()
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(3)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
   const lastItemIndex = currentPage * itemsPerPage
   const firstItemIndex = lastItemIndex - itemsPerPage
@@ -60,7 +60,7 @@ const DomainsList = () => {
                 className='flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primaryDark focus:border-2 focus:outline-none focus:ring-primaryLight'
                 onClick={() => navigate('/admin/domains/new')}
               >
-                <AiOutlineUserAdd className='mr-1' />
+                <FiPlus className='mr-1' />
                 Add new domain
               </button>
             </div>

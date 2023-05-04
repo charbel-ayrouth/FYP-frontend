@@ -5,6 +5,7 @@ import { updateProfileSchema } from '../../config/validationSchemas'
 import { useRefreshMutation } from '../auth/authApiSlice'
 import useAuth from '../../hooks/useAuth'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 const ProfileForm = ({ handleNext }) => {
   const { id } = useAuth()
@@ -84,12 +85,12 @@ const ProfileForm = ({ handleNext }) => {
           <div className='relative'>
             {isPasswordVisible ? (
               <AiOutlineEyeInvisible
-                className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                className='absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-400'
                 onClick={showPasswordHandler}
               />
             ) : (
               <AiOutlineEye
-                className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                className='absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-400'
                 onClick={showPasswordHandler}
               />
             )}
@@ -116,12 +117,12 @@ const ProfileForm = ({ handleNext }) => {
           <div className='relative'>
             {isConfirmPasswordVisible ? (
               <AiOutlineEyeInvisible
-                className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                className='absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-400'
                 onClick={showConfirmPasswordHandler}
               />
             ) : (
               <AiOutlineEye
-                className='absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-500'
+                className='absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer text-gray-400'
                 onClick={showConfirmPasswordHandler}
               />
             )}
@@ -144,7 +145,7 @@ const ProfileForm = ({ handleNext }) => {
             className='mt-4 w-full rounded-lg bg-primary px-4 py-2 text-center text-lg font-medium text-white shadow-lg hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
             disabled={formik.isSubmitting || isLoading}
           >
-            Submit
+            {isLoading ? <LoadingSpinner white={true} /> : 'Submit'}
           </button>
           {isError && (
             <p className='mt-2 text-center text-red-600'>

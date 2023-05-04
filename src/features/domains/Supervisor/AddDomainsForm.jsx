@@ -123,21 +123,27 @@ const AddDomainsForm = ({ ids, entities, step }) => {
           ))}
         </div>
         {isStep ? (
-          <button
-            onClick={() => addNewDomainToUser({ id, selectedDomains })}
-            className='mt-10 rounded-lg bg-primary py-2 px-4 text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
-            disabled={isLoadingSubmiting}
-          >
-            Submit
-          </button>
+          <div className='flex flex-row-reverse'>
+            <button
+              onClick={() => addNewDomainToUser({ id, selectedDomains })}
+              className='mt-10 rounded-lg bg-primary py-2 px-4 text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
+              disabled={isLoadingSubmiting}
+            >
+              Submit
+            </button>
+          </div>
         ) : (
-          <div className='mt-10 flex gap-5'>
+          <div className='mt-10 flex flex-row-reverse gap-5'>
             <button
               onClick={() => addNewDomainToUser({ id, selectedDomains })}
               className='rounded-lg bg-primary py-2 px-4 text-lg font-medium text-white hover:bg-primaryDark focus:outline-none focus:ring-4 focus:ring-primaryLight'
               disabled={isLoadingSubmiting}
             >
-              Save Selection
+              {isLoadingSubmiting ? (
+                <LoadingSpinner white={true} />
+              ) : (
+                'Save Selection'
+              )}
             </button>
             <button
               onClick={() => navigate(-1)}

@@ -12,7 +12,11 @@ export const profileApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    overview: builder.query({
+      query: (id) => `/users/${id}`,
+    }),
   }),
 })
 
-export const { useUpdateProfileMutation } = profileApiSlice
+export const { useUpdateProfileMutation, useOverviewQuery } = profileApiSlice

@@ -36,7 +36,7 @@ const AddTopicsForm = ({ ids, entities, handleNext, step }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      setSelectedTopics(data)
+      setSelectedTopics(data.map((obj) => obj._id))
     }
     if (isSuccessSubmiting && isStep === false) {
       navigate(`/${minimized}`)

@@ -43,7 +43,7 @@ const AddDomainsForm = ({ ids, entities, step }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      setSelectedDomains(data)
+      setSelectedDomains(data.map((obj) => obj._id))
     }
     if (isSuccessSubmiting && isStep === false) {
       navigate(`/${minimized}`)

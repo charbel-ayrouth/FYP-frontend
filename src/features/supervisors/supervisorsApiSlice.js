@@ -4,9 +4,11 @@ export const supervisorsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // get recomended supervisors
     getRecommendedSupervisors: builder.query({
-      query: ({ id }) => ({
-        url: `/supervisors/recommended/${id}`,
-      }),
+      query: ({ id }) => {
+        return {
+          url: `/supervisors/recommended/${id}`,
+        }
+      },
       providesTags: ['Supervisor'],
     }),
 
@@ -25,7 +27,7 @@ export const supervisorsApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { studentId },
       }),
-      invalidatesTags: ['Supervisor'],
+      invalidatesTags: ['Supervisor', 'ConnectionsRequest'],
     }),
 
     // accept request
@@ -35,7 +37,7 @@ export const supervisorsApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { studentId },
       }),
-      invalidatesTags: ['Supervisor'],
+      invalidatesTags: ['Supervisor', 'ConnectionsRequest'],
     }),
 
     // decline request
@@ -45,7 +47,15 @@ export const supervisorsApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { studentId },
       }),
-      invalidatesTags: ['Supervisor'],
+      invalidatesTags: ['Supervisor', 'ConnectionsRequest'],
+    }),
+
+    // get connections request
+    getConnectionsRequest: builder.query({
+      query: ({ id }) => ({
+        url: `/supervisors/${id}/connections-request`,
+      }),
+      providesTags: ['ConnectionsRequest'],
     }),
   }),
 })
@@ -56,4 +66,5 @@ export const {
   useAcceptConnectionRequestMutation,
   useDeclineConnectionRequestMutation,
   useGetOtherSupervisorsQuery,
+  useGetConnectionsRequestQuery,
 } = supervisorsApiSlice

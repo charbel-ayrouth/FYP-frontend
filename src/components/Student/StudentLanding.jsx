@@ -1,6 +1,7 @@
 import useAuth from '../../hooks/useAuth'
 import { Navigate, useLocation } from 'react-router-dom'
 import StudentLandingPage from './StudentLandingPage'
+import Dashboard from './Dashboard'
 
 const StudentLanding = () => {
   const { setupComplete } = useAuth()
@@ -15,7 +16,7 @@ const StudentLanding = () => {
   }
 
   if (setupComplete === true) {
-    content = <StudentLandingPage />
+    content = <Dashboard />
   }
   return content
 }

@@ -55,6 +55,12 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
         { type: 'Notification', id: arg.id },
       ],
     }),
+
+    getNewNotifications: builder.query({
+      query: (id) => ({
+        url: `/notifications/${id}/new`,
+      }),
+    }),
   }),
 })
 
@@ -62,4 +68,5 @@ export const {
   useGetNotificationsQuery,
   useReadNotificationsMutation,
   useMarkNotificationAsReadMutation,
+  useGetNewNotificationsQuery,
 } = notificationsApiSlice

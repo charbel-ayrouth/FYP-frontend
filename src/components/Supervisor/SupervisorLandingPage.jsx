@@ -1,13 +1,15 @@
 import React from 'react'
 import useAuth from '../../hooks/useAuth'
 import { Link } from 'react-router-dom'
+import ConnectionsRequest from './ConnectionsRequest'
 
 const SupervisorLandingPage = () => {
-  const { username } = useAuth()
+  const { username, id } = useAuth()
 
   return (
     <div className='px-4 xl:px-40'>
       <h1 className='mb-12 text-3xl font-bold'>Welcome back, {username}</h1>
+      <ConnectionsRequest id={id} />
       <div className='grid grid-flow-row-dense gap-4 md:grid-cols-2 lg:grid-cols-3'>
         <div
           id='one'

@@ -11,12 +11,10 @@ const Notification = ({ notification, userId }) => {
   })
 
   const clickHandler = async () => {
-    console.log('clicked')
     await markNotificationAsRead({
       id: userId,
       notificationId: notification.id,
     })
-    console.log('clicked done')
   }
 
   return (

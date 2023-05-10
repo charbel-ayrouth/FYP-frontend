@@ -1,17 +1,16 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import useAuth from '../../../hooks/useAuth'
 import { useSendConnectionRequestMutation } from '../supervisorsApiSlice'
+import LoadingSpinner from '../../../components/LoadingSpinner'
+import { getInitials } from '../../../config/functions'
 
 const SupervisorCard = ({ supervisor, w }) => {
   const { id } = useAuth()
+  const [showMore, setShowMore] = useState(false)
 
   const MAX_CONNECTIONS = 1
-
-  function getInitials(name) {
-    let initials = name.match(/\b\w/g) || []
-    initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase()
-    return initials
-  }
+  const MAX_TOPICS = 4
+  const MAX_DOMAINS = 4
 
   const [sendConnection, { isLoading, error, isError, isSuccess }] =
     useSendConnectionRequestMutation()
@@ -25,7 +24,6 @@ const SupervisorCard = ({ supervisor, w }) => {
     const { username, connections, connectionRequest, topics, domains } =
       supervisor
 
-    const initials = getInitials(username)
     return (
       <div
         className={`${
@@ -48,13 +46,16 @@ const SupervisorCard = ({ supervisor, w }) => {
                     : 'text-white'
                 }`}
               >
-                {initials}
+                {getInitials(username)}
               </span>
             </div>
             <div>
               <h2 className='text-lg font-bold text-gray-800'>{username}</h2>
               <p className='text-gray-600'>
-                {domains.map((domain) => domain.title).join(' , ')}
+                {domains
+                  .slice(0, showMore ? undefined : MAX_DOMAINS)
+                  .map((domain) => domain.title)
+                  .join(' , ')}
               </p>
             </div>
           </div>
@@ -62,14 +63,16 @@ const SupervisorCard = ({ supervisor, w }) => {
           <div className='mb-6'>
             <h3 className='mb-2 text-sm font-bold text-gray-700'>Topics:</h3>
             <ul className='flex flex-wrap gap-2'>
-              {topics.map((topic) => (
-                <li
-                  key={topic._id}
-                  className='rounded-full bg-gray-100 py-1 px-2 text-xs text-gray-600'
-                >
-                  {topic.title}
-                </li>
-              ))}
+              {topics
+                .slice(0, showMore ? undefined : MAX_TOPICS)
+                .map((topic) => (
+                  <li
+                    key={topic._id}
+                    className='rounded-full bg-gray-100 py-1 px-2 text-xs text-gray-600'
+                  >
+                    {topic.title}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
@@ -81,6 +84,13 @@ const SupervisorCard = ({ supervisor, w }) => {
               className='focus:shadow-outline-blue rounded-full bg-gray-400 py-2 px-4 font-bold text-white transition duration-300 ease-in-out focus:outline-none'
             >
               Request Sent
+            </button>
+          ) : connections.indexOf(id) !== -1 ? (
+            <button
+              className={`focus:shadow-outline-blue cursor-pointer rounded-full border border-primary bg-white py-2 px-4 font-bold text-primary focus:outline-none`}
+              disabled={true}
+            >
+              Connected
             </button>
           ) : (
             <button
@@ -95,7 +105,7 @@ const SupervisorCard = ({ supervisor, w }) => {
               }
               onClick={handleClick}
             >
-              {isLoading ? 'Connecting...' : 'Connect'}
+              {isLoading ? <LoadingSpinner white={true} /> : 'Connect'}
             </button>
           )}
           <div className='flex items-center'>

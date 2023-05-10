@@ -38,7 +38,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { ...initialUserData },
       }),
-      invalidatesTags: [{ type: 'User', id: 'LIST' }],
+      invalidatesTags: [{ type: 'User', id: 'LIST' }, 'Overview'],
     }),
     // update user
     updateUser: builder.mutation({
@@ -58,11 +58,10 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `/users/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, arg) => [{ type: 'User', id: arg.id }],
-    }),
-    // get all supervisors
-    getAllSupervisors: builder.query({
-      query: () => '/users/supervisors',
+      invalidatesTags: (result, error, arg) => [
+        { type: 'User', id: arg.id },
+        'Overview',
+      ],
     }),
   }),
 })
@@ -72,7 +71,6 @@ export const {
   useAddNewUserMutation,
   useDeleteUserMutation,
   useUpdateUserMutation,
-  useGetAllSupervisorsQuery,
 } = usersApiSlice
 
 // returns the query result object

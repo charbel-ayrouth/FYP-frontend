@@ -38,7 +38,10 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
         url: `/notifications/${id}`,
         method: 'POST',
       }),
-      invalidatesTags: [{ type: 'Notification', id: 'LIST' }],
+      invalidatesTags: [
+        { type: 'Notification', id: 'LIST' },
+        'NewNotification',
+      ],
     }),
 
     // mark one notification as read
@@ -53,6 +56,7 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
       },
       invalidatesTags: (result, error, arg) => [
         { type: 'Notification', id: arg.id },
+        'NewNotification',
       ],
     }),
 
@@ -60,6 +64,7 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `/notifications/${id}/new`,
       }),
+      providesTags: ['NewNotification'],
     }),
   }),
 })

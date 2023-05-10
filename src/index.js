@@ -5,6 +5,7 @@ import { store } from './app/store'
 import App from './App'
 import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ScrollToTop from './components/ScrollToTop'
 
 const container = document.getElementById('root')
 const root = createRoot(container)
@@ -13,9 +14,11 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <Routes>
-          <Route path='/*' element={<App />} />
-        </Routes>
+        <ScrollToTop>
+          <Routes>
+            <Route path='/*' element={<App />} />
+          </Routes>
+        </ScrollToTop>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

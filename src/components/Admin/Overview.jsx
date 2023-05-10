@@ -1,9 +1,14 @@
 import React from 'react'
 import { useOverviewQuery } from '../../features/profile/profileApiSlice'
+import LoadingSpinner from '../LoadingSpinner'
 
 const Overview = ({ id }) => {
   let content = null
   const { data, isLoading, isError, error, isSuccess } = useOverviewQuery(id)
+
+  if (isLoading) content = <LoadingSpinner />
+
+  if (isError) content = <p className='text-red-600'>{error?.data.message}</p>
 
   if (isSuccess) {
     content = (

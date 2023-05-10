@@ -15,6 +15,7 @@ export const profileApiSlice = apiSlice.injectEndpoints({
 
     overview: builder.query({
       query: (id) => `/users/${id}`,
+      providesTags: ['Overview'],
     }),
   }),
 })

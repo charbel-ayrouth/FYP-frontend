@@ -40,7 +40,7 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { ...initialDomainData },
       }),
-      invalidatesTags: [{ type: 'Domain', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Domain', id: 'LIST' }, 'Overview'],
     }),
 
     // update domain
@@ -63,7 +63,10 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: { id },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: 'Domain', id: arg.id }],
+      invalidatesTags: (result, error, arg) => [
+        { type: 'Domain', id: arg.id },
+        'Overview',
+      ],
     }),
 
     // get domains of user
@@ -86,7 +89,7 @@ export const domainsApiSlice = apiSlice.injectEndpoints({
           body,
         }
       },
-      invalidatesTags: ['SelectedDomains'],
+      invalidatesTags: ['SelectedDomains', 'Overview'],
     }),
   }),
 })

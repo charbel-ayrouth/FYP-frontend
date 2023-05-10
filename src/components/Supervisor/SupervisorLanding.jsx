@@ -1,5 +1,5 @@
 import useAuth from '../../hooks/useAuth'
-import SupervisorLandingPage from './SupervisorLandingPage'
+import Dashboard from './Dashboard'
 import { Navigate, useLocation } from 'react-router-dom'
 
 const SupervisorLanding = () => {
@@ -15,7 +15,7 @@ const SupervisorLanding = () => {
   }
 
   if (setupComplete === true) {
-    content = <SupervisorLandingPage />
+    content = <Dashboard />
   }
   return content
 }

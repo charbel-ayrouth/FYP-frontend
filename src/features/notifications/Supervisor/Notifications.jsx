@@ -1,7 +1,7 @@
 import React from 'react'
-import { useGetNewNotificationsQuery } from '../../features/notifications/notificationsApiSlice'
-import { formatDistanceToNow } from 'date-fns'
-import { Link, useNavigate } from 'react-router-dom'
+import { useGetNewNotificationsQuery } from '../notificationsApiSlice'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { timeAgo } from '../../../config/functions'
 
 // const data = [
 //   {
@@ -39,12 +39,7 @@ import { Link, useNavigate } from 'react-router-dom'
 const Notifications = ({ id }) => {
   let content = null
   const navigate = useNavigate()
-
-  const timeAgo = (date) => {
-    return formatDistanceToNow(new Date(date), {
-      addSuffix: true,
-    })
-  }
+  const { pathname } = useLocation()
 
   const MAX_NOTIFICATIONS = 3
 
@@ -70,8 +65,10 @@ const Notifications = ({ id }) => {
             data.slice(0, MAX_NOTIFICATIONS).map((notification) => (
               <div
                 key={notification._id}
-                className={`rounded-md bg-gray-100 p-2 font-semibold`}
-                onClick={() => navigate('/student/notifications')}
+                className={`cursor-pointer rounded-md bg-gray-100 p-2 font-semibold`}
+                onClick={() =>
+                  navigate(`/${pathname.split('/')[1]}/notifications`)
+                }
               >
                 <p className='text-sm'>{notification.message}</p>
                 <p className='text-xs text-gray-500'>

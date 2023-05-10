@@ -1,13 +1,13 @@
 import React from 'react'
-import Overview from './Overview'
-import Appointments from './Appointments'
-import AdvisorDirectory from '../../features/supervisors/Student/AdvisorDirectory'
+import Overview from '../Student/Overview'
+import Appointments from '../Student/Appointments'
 import Notifications from '../../features/notifications/Supervisor/Notifications'
-import Settings from './Settings'
-import Help from './Help'
+import Settings from '../Student/Settings'
+import Help from '../Student/Help'
 import SelectedTopics from '../../features/topics/Supervisor/SelectedTopics'
 import SelectedDomains from '../../features/domains/Supervisor/SelectedDomains'
 import useAuth from '../../hooks/useAuth'
+import ConnectionsRequest from './ConnectionsRequest'
 
 const Dashboard = () => {
   const { username, id } = useAuth()
@@ -19,7 +19,7 @@ const Dashboard = () => {
         <div className='flex flex-col gap-4'>
           <Overview id={id} />
 
-          <AdvisorDirectory id={id} />
+          <ConnectionsRequest id={id} />
 
           <SelectedTopics id={id} />
 
@@ -35,26 +35,6 @@ const Dashboard = () => {
           <Help />
         </div>
       </div>
-      {/* <div className='grid grid-flow-row-dense gap-4 md:grid-cols-2 lg:grid-cols-3'>
-        <div className='col-span-2 row-span-2'>
-          <Overview />
-        </div>
-        <div className='col-span-2 row-span-2 md:col-span-1'>
-          <Appointments />
-        </div>
-        <div className='col-span-2 row-span-2'>
-          <AdvisorDirectory />
-        </div>
-        <div className='col-span-2 row-span-2 md:col-span-1'>
-          <Notifications />
-        </div>
-        <div className='col-span-2 row-span-2'>
-          <Settings />
-        </div>
-        <div className='col-span-2 row-span-2 md:col-span-1'>
-          <Help />
-        </div>
-      </div> */}
     </div>
   )
 }

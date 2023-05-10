@@ -25,7 +25,7 @@ const Overview = ({ id }) => {
           </div>
         </div>
         <div className='flex items-center justify-between'>
-          <div className='text-sm text-gray-600'>Connections Request Sent</div>
+          <div className='text-sm text-gray-600'>Connections</div>
           <div className='text-3xl font-bold text-yellow-500'>
             {data.connections}
           </div>

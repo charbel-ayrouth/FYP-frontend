@@ -1,6 +1,5 @@
 import useAuth from '../../hooks/useAuth'
 import { Navigate, useLocation } from 'react-router-dom'
-import StudentLandingPage from './StudentLandingPage'
 import Dashboard from './Dashboard'
 
 const StudentLanding = () => {

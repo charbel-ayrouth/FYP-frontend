@@ -2,9 +2,9 @@ import React from 'react'
 import {
   useGetRecommendedSupervisorsQuery,
   useGetOtherSupervisorsQuery,
-} from '../../features/supervisors/supervisorsApiSlice'
-import SupervisorCard from '../../features/supervisors/Student/SupervisorCard'
-import { Link } from 'react-router-dom'
+} from '../supervisorsApiSlice'
+import SupervisorCard from './SupervisorCard'
+import { Link, useLocation } from 'react-router-dom'
 
 const advisors = [
   {
@@ -46,6 +46,7 @@ const advisors = [
 const AdvisorDirectory = ({ id }) => {
   let content = null
   let cardContent
+  const { pathname } = useLocation()
 
   const { data, isSuccess } = useGetRecommendedSupervisorsQuery({ id })
   const { data: other, isSuccess: isSuccessOther } =
@@ -77,15 +78,16 @@ const AdvisorDirectory = ({ id }) => {
 
     content = (
       <div className='rounded-lg bg-white p-6 shadow-lg'>
-        <h2 className='mb-4 text-2xl font-bold'>Advisor Directory</h2>
+        <h2 className='mb-4 text-2xl font-bold'>Supervisors</h2>
         <div className='-mx-4 flex flex-col gap-4 md:flex-row'>
           {cardContent}
         </div>
-        <div className='mt-4'>
-          <Link to='/advisors' className='text-primary hover:underline'>
-            See all advisors
-          </Link>
-        </div>
+        <Link
+          to={`/${pathname.split('/')[1]}/connections`}
+          className='text-primary hover:underline'
+        >
+          See all supervisors
+        </Link>
       </div>
     )
   }

@@ -1,10 +1,11 @@
 import React from 'react'
-import { useGetTopicsOfUserQuery } from '../../features/topics/topicsApiSlice'
-import { Link } from 'react-router-dom'
+import { useGetTopicsOfUserQuery } from '../topicsApiSlice'
+import { Link, useLocation } from 'react-router-dom'
 
 const SelectedTopics = ({ id }) => {
   const MAX_TOPICS = 4
   let content = null
+  const { pathname } = useLocation()
 
   const { data, isSuccess } = useGetTopicsOfUserQuery(id)
 
@@ -12,7 +13,7 @@ const SelectedTopics = ({ id }) => {
     content = (
       <div className='rounded-lg bg-white p-6 shadow-lg'>
         <Link
-          to={'/student/topics'}
+          to={`/${pathname.split('/')[1]}/topics`}
           className='text-xl font-bold hover:underline'
         >
           Your Topics
@@ -32,13 +33,14 @@ const SelectedTopics = ({ id }) => {
             + {data.length - MAX_TOPICS} more topics
           </p>
         )}
-        <Link
-          to='/student/topics'
-          className='mt-4 text-primary hover:underline'
-          // className='mt-4 inline-block rounded-full bg-primary px-4 py-2 font-medium text-white'
-        >
-          Edit Topics
-        </Link>
+        <div className='mt-4'>
+          <Link
+            to={`/${pathname.split('/')[1]}/topics`}
+            className='text-primary hover:underline'
+          >
+            Edit Topics
+          </Link>
+        </div>
       </div>
     )
   }

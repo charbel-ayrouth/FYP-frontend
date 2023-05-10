@@ -39,7 +39,7 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { ...initialTopicData },
       }),
-      invalidatesTags: [{ type: 'Topic', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Topic', id: 'LIST' }, 'Overview'],
     }),
 
     // update topic
@@ -61,7 +61,10 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
         url: `/topics/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, arg) => [{ type: 'Topic', id: arg.id }],
+      invalidatesTags: (result, error, arg) => [
+        { type: 'Topic', id: arg.id },
+        'Overview',
+      ],
     }),
 
     //get topics of user
@@ -80,7 +83,7 @@ export const topicsApiSlice = apiSlice.injectEndpoints({
           body,
         }
       },
-      invalidatesTags: ['SelectedTopics'],
+      invalidatesTags: ['SelectedTopics', 'Overview'],
     }),
   }),
 })

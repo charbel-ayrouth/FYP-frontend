@@ -1,8 +1,15 @@
 import React from 'react'
-import { useGetConnectionsRequestQuery } from '../../features/supervisors/supervisorsApiSlice'
+import {
+  useGetConnectionsRequestQuery,
+  useAcceptConnectionRequestMutation,
+  useDeclineConnectionRequestMutation,
+} from '../../features/supervisors/supervisorsApiSlice'
 import LoadingSpinner from '../LoadingSpinner'
+import { getInitials } from '../../config/functions'
 
 const ConnectionsRequest = ({ id }) => {
+  const MAX_REQUEST = 3
+
   const { data, isLoading, isSuccess, isError, error } =
     useGetConnectionsRequestQuery(
       { id },
@@ -13,33 +20,13 @@ const ConnectionsRequest = ({ id }) => {
       }
     )
 
-  // Dummy data for connections request
-  const connectionsRequest = [
-    {
-      id: 1,
-      studentName: 'John Doe',
-      topic: 'Machine Learning',
-      domain: 'Computer Science',
-      message:
-        'Hello! I am interested in working on a project related to Machine Learning. Can we connect and discuss further?',
-    },
-    {
-      id: 2,
-      studentName: 'Jane Smith',
-      topic: 'Web Development',
-      domain: 'Computer Science',
-      message:
-        'Hi, I am interested in your expertise in web development. Can we connect and discuss further about a possible project idea?',
-    },
-  ]
+  const [
+    acceptConnection,
+    { isLoading: isLoadingAccept, isError: isErrorAccept, error: errorAccept },
+  ] = useAcceptConnectionRequestMutation()
 
-  const handleAccept = (id) => {
-    // handle accept request logic
-  }
-
-  const handleDecline = (id) => {
-    // handle decline request logic
-  }
+  const [declineConnection, { isLoading: isLoadingDecline }] =
+    useDeclineConnectionRequestMutation()
 
   let content
 
@@ -49,69 +36,103 @@ const ConnectionsRequest = ({ id }) => {
 
   if (isSuccess) {
     content = (
-      <div className='overflow-hidden rounded-lg bg-white shadow-lg'>
-        <div className='px-4 py-5 sm:p-6'>
-          <h2 className='text-lg font-medium text-gray-900'>
-            Connections Requests
-          </h2>
-          <div className='mt-5'>
-            {connectionsRequest.length > 0 ? (
-              <ul className='divide-y divide-gray-200'>
-                {connectionsRequest.map((request) => (
-                  <li key={request.id} className='py-4'>
-                    <div className='flex space-x-3'>
-                      <div className='flex-shrink-0'>
-                        <svg
-                          className='h-8 w-8 rounded-full'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          stroke='currentColor'
-                          aria-hidden='true'
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='M7 20l4-16m2 16l4-16M6 9h14M4 15h14'
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 className='text-sm font-medium text-gray-900'>
-                          {request.studentName} - {request.topic} (
-                          {request.domain})
-                        </h3>
-                        <div className='mt-2 text-sm text-gray-500'>
-                          {request.message}
-                        </div>
-                        <div className='mt-4 flex justify-end'>
-                          <button
-                            onClick={() => handleAccept(request.id)}
-                            type='button'
-                            className='inline-flex items-center rounded-md border border-transparent bg-green-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
-                          >
-                            Accept
-                          </button>
-                          <button
-                            onClick={() => handleDecline(request.id)}
-                            type='button'
-                            className='ml-3 inline-flex items-center rounded-md border border-transparent bg-red-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2'
-                          >
-                            Decline
-                          </button>
-                        </div>
-                      </div>
+      <div className='rounded-lg bg-white p-6 shadow-lg'>
+        <h2 className='text-xl font-bold'>Connections Requests</h2>
+        <ul className='mt-4 flex flex-col gap-2'>
+          {data.length === 0 ? (
+            <p className='text-gray-500'>
+              You currently have no connection request.
+            </p>
+          ) : (
+            data.slice(0, MAX_REQUEST).map((user) => (
+              <li
+                key={user._id}
+                className='mb-4 flex flex-col justify-between rounded-lg border bg-white p-4 shadow-md'
+              >
+                <div>
+                  <div className='mb-4 flex items-center'>
+                    <div
+                      className={`mr-4 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full
+
+                  bg-primary
+                `}
+                    >
+                      <span
+                        className={`text-lg font-bold
+                    text-white
+                `}
+                      >
+                        {getInitials(user.username)}
+                      </span>
                     </div>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className='py-4'>
-                <p className='text-sm text-gray-500'>No connections request.</p>
-              </div>
-            )}
-          </div>
-        </div>
+                    <div>
+                      <h2 className='text-lg font-bold text-gray-800'>
+                        {user.username}
+                      </h2>
+                      <p className='text-gray-600'>
+                        {user.domains.map((domain) => domain.title).join(' , ')}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className='mb-6'>
+                    <h3 className='mb-2 text-sm font-bold text-gray-700'>
+                      Topics:
+                    </h3>
+                    <ul className='flex flex-wrap gap-2'>
+                      {user.topics.map((topic) => (
+                        <li
+                          key={topic._id}
+                          className='rounded-full bg-gray-100 py-1 px-2 text-xs text-gray-600'
+                        >
+                          {topic.title}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className='flex gap-4'>
+                    <button
+                      type='button'
+                      className='focus:shadow-outline-blue rounded-full bg-blue-500 py-2 px-4 font-bold text-white transition duration-300 ease-in-out hover:bg-blue-700 focus:outline-none'
+                      onClick={() =>
+                        acceptConnection({
+                          supervisorId: id,
+                          studentId: user._id,
+                        })
+                      }
+                    >
+                      {isLoadingAccept ? (
+                        <LoadingSpinner white={true} />
+                      ) : (
+                        'Accept'
+                      )}
+                    </button>
+                    <button
+                      type='button'
+                      className='focus:shadow-outline-blue rounded-full bg-red-500 py-2 px-4 font-bold text-white transition duration-300 ease-in-out hover:bg-red-700 focus:outline-none'
+                      onClick={() =>
+                        declineConnection({
+                          supervisorId: id,
+                          studentId: user._id,
+                        })
+                      }
+                    >
+                      {isLoadingDecline ? (
+                        <LoadingSpinner white={true} />
+                      ) : (
+                        'Decline'
+                      )}
+                    </button>
+                  </div>
+                  {isErrorAccept && (
+                    <p className='text-red-600'>{errorAccept?.data.message}</p>
+                  )}
+                </div>
+              </li>
+            ))
+          )}
+        </ul>
       </div>
     )
   }

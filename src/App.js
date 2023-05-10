@@ -57,13 +57,13 @@ function App() {
           <Route
             element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
           >
+            {/* Account Setup */}
+            <Route element={<DashLayout />}>
+              <Route path='account-setup' element={<Stepper />} />
+            </Route>
+            {/* Account Setup */}
+            {/* Admin */}
             <Route element={<Prefetch />}>
-              {/* Account Setup */}
-              <Route element={<DashLayout />}>
-                <Route path='account-setup' element={<Stepper />} />
-              </Route>
-              {/* Account Setup */}
-              {/* Admin */}
               <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
                 <Route path='admin' element={<DashLayout />}>
                   <Route index element={<Welcome />} />
@@ -87,34 +87,32 @@ function App() {
                   </Route>
                 </Route>
               </Route>
-              {/* End Admin */}
-              {/* Start Supervisor */}
-              <Route
-                element={<RequireAuth allowedRoles={[ROLES.Supervisor]} />}
-              >
-                <Route path='supervisor' element={<DashLayout />}>
-                  <Route index element={<SupervisorLanding />} />
-
-                  <Route path='topics' element={<AddTopics />} />
-                  <Route path='domains' element={<AddDomains />} />
-                  <Route path='notifications' element={<NotificationsList />} />
-                </Route>
-              </Route>
-              {/* End Supervisor Supervisor */}
-
-              {/* Start Student */}
-              <Route element={<RequireAuth allowedRoles={[ROLES.Student]} />}>
-                <Route path='student' element={<DashLayout />}>
-                  <Route index element={<StudentLanding />} />
-
-                  <Route path='connections' element={<SupervisorsList />} />
-                  <Route path='topics' element={<AddTopics />} />
-                  <Route path='domains' element={<AddDomains />} />
-                  <Route path='notifications' element={<NotificationsList />} />
-                </Route>
-              </Route>
-              {/* End Student */}
             </Route>
+            {/* End Admin */}
+            {/* Start Supervisor */}
+            <Route element={<RequireAuth allowedRoles={[ROLES.Supervisor]} />}>
+              <Route path='supervisor' element={<DashLayout />}>
+                <Route index element={<SupervisorLanding />} />
+
+                <Route path='topics' element={<AddTopics />} />
+                <Route path='domains' element={<AddDomains />} />
+                <Route path='notifications' element={<NotificationsList />} />
+              </Route>
+            </Route>
+            {/* End Supervisor Supervisor */}
+
+            {/* Start Student */}
+            <Route element={<RequireAuth allowedRoles={[ROLES.Student]} />}>
+              <Route path='student' element={<DashLayout />}>
+                <Route index element={<StudentLanding />} />
+
+                <Route path='connections' element={<SupervisorsList />} />
+                <Route path='topics' element={<AddTopics />} />
+                <Route path='domains' element={<AddDomains />} />
+                <Route path='notifications' element={<NotificationsList />} />
+              </Route>
+            </Route>
+            {/* End Student */}
           </Route>
         </Route>
         {/* End Protected Routes */}

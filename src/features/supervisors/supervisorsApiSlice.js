@@ -37,7 +37,7 @@ export const supervisorsApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { studentId },
       }),
-      invalidatesTags: ['Supervisor', 'ConnectionsRequest'],
+      invalidatesTags: ['Supervisor', 'ConnectionsRequest', 'Overview'],
     }),
 
     // decline request

@@ -51,6 +51,8 @@ export const apiSlice = createApi({
     'SelectedDomains',
     'SelectedTopics',
     'ConnectionsRequest',
+    'NewNotification',
+    'Overview',
   ],
   endpoints: (builder) => ({}),
 })

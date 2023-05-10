@@ -1,14 +1,10 @@
 import React, { memo } from 'react'
-import { formatDistanceToNow } from 'date-fns'
 import { FaBell } from 'react-icons/fa'
 import { useMarkNotificationAsReadMutation } from './notificationsApiSlice'
+import { timeAgo } from '../../config/functions'
 
 const Notification = ({ notification, userId }) => {
   const [markNotificationAsRead, {}] = useMarkNotificationAsReadMutation()
-
-  const timeAgo = formatDistanceToNow(new Date(notification.updatedAt), {
-    addSuffix: true,
-  })
 
   const clickHandler = async () => {
     await markNotificationAsRead({
@@ -26,7 +22,9 @@ const Notification = ({ notification, userId }) => {
       />
       <div>
         <h2 className='text-lg font-bold'>{notification.message}</h2>
-        <p className='text-sm text-gray-400'>{timeAgo}</p>
+        <p className='text-sm text-gray-400'>
+          {timeAgo(notification.updatedAt)}
+        </p>
         <button
           className={`text-sm ${
             notification.read ? 'text-gray-400' : 'text-primaryLight'

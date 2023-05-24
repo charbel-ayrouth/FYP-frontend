@@ -49,7 +49,7 @@ const Notifications = ({ id }) => {
     content = (
       <div className='rounded-lg bg-white p-4 shadow-md'>
         <Link
-          to='/student/notifications'
+          to={`/${pathname.split('/')[1]}/notifications`}
           className='cursor-pointer text-xl font-bold hover:underline'
         >
           Notifications

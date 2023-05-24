@@ -8,6 +8,7 @@ import SelectedTopics from '../../features/topics/Supervisor/SelectedTopics'
 import SelectedDomains from '../../features/domains/Supervisor/SelectedDomains'
 import useAuth from '../../hooks/useAuth'
 import ConnectionsRequest from './ConnectionsRequest'
+import SupervisorAvailability from './SupervisorAvailability'
 
 const Dashboard = () => {
   const { username, id } = useAuth()
@@ -15,8 +16,9 @@ const Dashboard = () => {
   return (
     <div className='px-4 xl:px-28'>
       <h1 className='mb-12 text-3xl font-bold'>Welcome back, {username}</h1>
-      <div className='flex flex-col gap-4 lg:flex-row lg:gap-8'>
-        <div className='flex flex-col gap-4'>
+      <SupervisorAvailability />
+      <div className='flex flex-col gap-4 lg:flex-row lg:justify-between'>
+        <div className='flex flex-col gap-4 lg:w-[66%]'>
           <Overview id={id} />
 
           <ConnectionsRequest id={id} />
@@ -25,7 +27,7 @@ const Dashboard = () => {
 
           <Settings />
         </div>
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 lg:w-[30%]'>
           <Appointments />
 
           <Notifications id={id} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSendLogoutMutation } from '../../features/auth/authApiSlice'
-import { FiMoreVertical, FiChevronLeft, FiHome } from 'react-icons/fi'
+import { FiMoreVertical, FiChevronLeft, FiHome, FiUser } from 'react-icons/fi'
 
 const DashHeader = () => {
   const navigate = useNavigate()
@@ -61,6 +61,10 @@ const DashHeader = () => {
               : 'Home Page'}
           </h4>
           <div className='flex items-center space-x-6 font-heading font-semibold'>
+            <FiUser
+              className='transform cursor-pointer text-2xl transition-colors duration-300 hover:text-primary'
+              onClick={() => navigate(`/${pathname.split('/')[1]}/profile`)}
+            />
             {/* Home Icon */}
             <FiHome
               className='transform cursor-pointer text-2xl transition-colors duration-300 hover:text-primary'

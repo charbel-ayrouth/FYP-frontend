@@ -32,7 +32,6 @@ const ForgetPassword = () => {
     },
     validationSchema: resetPasswordSchema,
     onSubmit: async (values, action) => {
-      console.log(values.password)
       await resetPassword({ token, newPassword: values.password })
     },
   })

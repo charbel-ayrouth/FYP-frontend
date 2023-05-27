@@ -32,6 +32,7 @@ import Stepper from './components/Stepper/Stepper.jsx'
 import ForgetPassword from './features/auth/ForgetPassword'
 import ResetPassword from './features/auth/ResetPassword'
 import AuthLayout from './components/AuthLayout'
+import ProfilePage from './components/ProfilePage/ProfilePage'
 
 function App() {
   useTitle('FYP')
@@ -97,6 +98,7 @@ function App() {
                 <Route path='topics' element={<AddTopics />} />
                 <Route path='domains' element={<AddDomains />} />
                 <Route path='notifications' element={<NotificationsList />} />
+                <Route path='profile' element={<ProfilePage />} />
               </Route>
             </Route>
             {/* End Supervisor Supervisor */}

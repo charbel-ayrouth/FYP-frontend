@@ -46,7 +46,7 @@ const ConnectionsRequest = ({ id }) => {
           ) : (
             data.slice(0, MAX_REQUEST).map((user) => (
               <li
-                key={user._id}
+                key={user.user._id}
                 className='mb-4 flex flex-col justify-between rounded-lg border bg-white p-4 shadow-md'
               >
                 <div>
@@ -62,25 +62,27 @@ const ConnectionsRequest = ({ id }) => {
                     text-white
                 `}
                       >
-                        {getInitials(user.username)}
+                        {getInitials(user.user.username)}
                       </span>
                     </div>
                     <div>
                       <h2 className='text-lg font-bold text-gray-800'>
-                        {user.username}
+                        {user.user.username}
                       </h2>
-                      <p className='text-gray-600'>
-                        {user.domains.map((domain) => domain.title).join(' , ')}
-                      </p>
+                      {/* <p className='text-gray-600'>
+                        {user.user.domains
+                          .map((domain) => domain.title)
+                          .join(' , ')}
+                      </p> */}
                     </div>
                   </div>
 
-                  <div className='mb-6'>
+                  {/* <div className='mb-6'>
                     <h3 className='mb-2 text-sm font-bold text-gray-700'>
                       Topics:
                     </h3>
                     <ul className='flex flex-wrap gap-2'>
-                      {user.topics.map((topic) => (
+                      {user.user.topics.map((topic) => (
                         <li
                           key={topic._id}
                           className='rounded-full bg-gray-100 py-1 px-2 text-xs text-gray-600'
@@ -89,7 +91,9 @@ const ConnectionsRequest = ({ id }) => {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </div> */}
+
+                  <div className='mb-6'>{user.message}</div>
 
                   <div className='flex gap-4'>
                     <button
@@ -98,7 +102,7 @@ const ConnectionsRequest = ({ id }) => {
                       onClick={() =>
                         acceptConnection({
                           supervisorId: id,
-                          studentId: user._id,
+                          studentId: user.user._id,
                         })
                       }
                     >
@@ -114,7 +118,7 @@ const ConnectionsRequest = ({ id }) => {
                       onClick={() =>
                         declineConnection({
                           supervisorId: id,
-                          studentId: user._id,
+                          studentId: user.user._id,
                         })
                       }
                     >

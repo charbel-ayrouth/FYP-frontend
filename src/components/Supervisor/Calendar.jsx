@@ -13,13 +13,13 @@ import {
 } from 'date-fns'
 import { useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
-import Meeting from './Meeting'
+import TimeSlot from './TimeSlot'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Calendar({ meetings, selectedDay, setSelectedDay }) {
+export default function Calendar({ timeslots, selectedDay, setSelectedDay }) {
   let [currentMonth, setCurrentMonth] = useState(
     format(selectedDay, 'MMM-yyyy')
   )
@@ -40,8 +40,8 @@ export default function Calendar({ meetings, selectedDay, setSelectedDay }) {
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
   }
 
-  let selectedDayMeetings = meetings.filter((meeting) =>
-    isSameDay(parseISO(meeting.startDatetime), selectedDay)
+  let selectedDayTimeSlots = timeslots.filter((timeslot) =>
+    isSameDay(parseISO(timeslot.startTime), selectedDay)
   )
 
   return (
@@ -117,8 +117,8 @@ export default function Calendar({ meetings, selectedDay, setSelectedDay }) {
                 </button>
 
                 <div className='mx-auto mt-1 h-1 w-1'>
-                  {meetings.some((meeting) =>
-                    isSameDay(parseISO(meeting.startDatetime), day)
+                  {timeslots.some((timeslot) =>
+                    isSameDay(parseISO(timeslot.startTime), day)
                   ) && <div className='h-1 w-1 rounded-full bg-primary'></div>}
                 </div>
               </div>
@@ -133,9 +133,9 @@ export default function Calendar({ meetings, selectedDay, setSelectedDay }) {
             </time>
           </h2>
           <ol className='mt-4 space-y-1 text-sm leading-6 text-gray-500'>
-            {selectedDayMeetings.length > 0 ? (
-              selectedDayMeetings.map((meeting, index) => (
-                <Meeting meeting={meeting} key={index} />
+            {selectedDayTimeSlots.length > 0 ? (
+              selectedDayTimeSlots.map((timeslot, index) => (
+                <TimeSlot timeslot={timeslot} key={index} />
               ))
             ) : (
               <p>No meetings for this day.</p>

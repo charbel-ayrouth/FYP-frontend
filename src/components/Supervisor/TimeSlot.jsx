@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import { format, parseISO } from 'date-fns'
 import { FiMoreVertical } from 'react-icons/fi'
 
-const Meeting = ({ meeting }) => {
-  let startDateTime = parseISO(meeting.startDatetime)
-  let endDateTime = parseISO(meeting.endDatetime)
+const TimeSlot = ({ timeslot }) => {
+  let startDateTime = parseISO(timeslot.startTime)
+  let endDateTime = parseISO(timeslot.endTime)
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
@@ -41,11 +41,11 @@ const Meeting = ({ meeting }) => {
       <div className='flex-auto'>
         <p className='text-gray-900'>Michael Foster</p>
         <p className='mt-0.5'>
-          <time dateTime={meeting.startDatetime}>
+          <time dateTime={timeslot.startTime}>
             {format(startDateTime, 'h:mm a')}
           </time>{' '}
           -{' '}
-          <time dateTime={meeting.endDatetime}>
+          <time dateTime={timeslot.endTime}>
             {format(endDateTime, 'h:mm a')}
           </time>
         </p>
@@ -75,4 +75,4 @@ const Meeting = ({ meeting }) => {
   )
 }
 
-export default Meeting
+export default TimeSlot

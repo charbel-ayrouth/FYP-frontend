@@ -22,10 +22,10 @@ export const supervisorsApiSlice = apiSlice.injectEndpoints({
 
     // send request
     sendConnectionRequest: builder.mutation({
-      query: ({ supervisorId, studentId }) => ({
+      query: ({ supervisorId, studentId, message }) => ({
         url: `/supervisors/${supervisorId}/connect`,
         method: 'POST',
-        body: { studentId },
+        body: { studentId, message },
       }),
       invalidatesTags: ['Supervisor', 'ConnectionsRequest'],
     }),
@@ -54,6 +54,14 @@ export const supervisorsApiSlice = apiSlice.injectEndpoints({
     getConnectionsRequest: builder.query({
       query: ({ id }) => ({
         url: `/supervisors/${id}/connections-request`,
+      }),
+      providesTags: ['ConnectionsRequest'],
+    }),
+
+    // get connections
+    getConnections: builder.query({
+      query: ({ id }) => ({
+        url: `/supervisors/${id}/connections`,
       }),
       providesTags: ['ConnectionsRequest'],
     }),

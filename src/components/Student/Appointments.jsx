@@ -2,30 +2,30 @@ import React from 'react'
 
 const Appointments = () => {
   const appointments = [
-    // {
-    //   id: 1,
-    //   advisorName: 'John Doe',
-    //   date: '2023-05-10',
-    //   time: '10:00 AM',
-    //   duration: '30 minutes',
-    //   location: 'Virtual',
-    // },
-    // {
-    //   id: 2,
-    //   advisorName: 'Jane Smith',
-    //   date: '2023-05-12',
-    //   time: '2:00 PM',
-    //   duration: '1 hour',
-    //   location: 'In-person',
-    // },
-    // {
-    //   id: 3,
-    //   advisorName: 'Bob Johnson',
-    //   date: '2023-05-14',
-    //   time: '11:30 AM',
-    //   duration: '45 minutes',
-    //   location: 'Virtual',
-    // },
+    {
+      id: 1,
+      advisorName: 'John Doe',
+      date: '2023-05-10',
+      time: '10:00 AM',
+      duration: '30 minutes',
+      location: 'Virtual',
+    },
+    {
+      id: 2,
+      advisorName: 'Jane Smith',
+      date: '2023-05-12',
+      time: '2:00 PM',
+      duration: '1 hour',
+      location: 'In-person',
+    },
+    {
+      id: 3,
+      advisorName: 'Bob Johnson',
+      date: '2023-05-14',
+      time: '11:30 AM',
+      duration: '45 minutes',
+      location: 'Virtual',
+    },
   ]
 
   return (

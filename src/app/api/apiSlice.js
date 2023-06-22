@@ -53,6 +53,7 @@ export const apiSlice = createApi({
     'ConnectionsRequest',
     'NewNotification',
     'Overview',
+    'Availability',
   ],
   endpoints: (builder) => ({}),
 })

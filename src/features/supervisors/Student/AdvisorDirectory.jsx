@@ -6,43 +6,6 @@ import {
 import SupervisorCard from './SupervisorCard'
 import { Link, useLocation } from 'react-router-dom'
 
-const advisors = [
-  {
-    id: 1,
-    name: 'John Doe',
-    areasOfExpertise: ['Machine Learning', 'Data Science'],
-    availability: [
-      {
-        day: 'Monday',
-        slots: ['10:00am - 12:00pm', '1:00pm - 3:00pm'],
-      },
-      {
-        day: 'Wednesday',
-        slots: ['9:00am - 11:00am', '2:00pm - 4:00pm'],
-      },
-      {
-        day: 'Friday',
-        slots: ['11:00am - 1:00pm'],
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    areasOfExpertise: ['Web Development', 'Mobile Development'],
-    availability: [
-      {
-        day: 'Tuesday',
-        slots: ['9:00am - 12:00pm', '1:00pm - 4:00pm'],
-      },
-      {
-        day: 'Thursday',
-        slots: ['10:00am - 12:00pm', '2:00pm - 5:00pm'],
-      },
-    ],
-  },
-]
-
 const AdvisorDirectory = ({ id }) => {
   let content = null
   let cardContent

@@ -16,12 +16,19 @@ import {
 import { useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import TimeSlot from './TimeSlot'
+import { useGetAppointmentsQuery } from '../../features/appointments/appointmentsApiSlice'
+import LoadingSpinner from '../LoadingSpinner'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Calendar({ timeslots, selectedDay, setSelectedDay }) {
+export default function Calendar({
+  timeslots,
+  selectedDay,
+  setSelectedDay,
+  id,
+}) {
   let today = startOfToday()
 
   let [currentMonth, setCurrentMonth] = useState(
@@ -47,6 +54,11 @@ export default function Calendar({ timeslots, selectedDay, setSelectedDay }) {
   let selectedDayTimeSlots = timeslots.filter((timeslot) =>
     isSameDay(parseISO(timeslot.startTime), selectedDay)
   )
+
+  const { data, isLoading, isSuccess, error, isError } =
+    useGetAppointmentsQuery({
+      userId: id,
+    })
 
   return (
     <div className='mx-auto max-w-md px-4 py-2 sm:px-7 md:max-w-5xl md:px-6'>
@@ -139,15 +151,47 @@ export default function Calendar({ timeslots, selectedDay, setSelectedDay }) {
               {format(selectedDay, 'MMM dd, yyy')}
             </time>
           </h2>
-          <ol className='mt-4 space-y-1 text-sm leading-6 text-gray-500'>
-            {selectedDayTimeSlots.length > 0 ? (
-              selectedDayTimeSlots.map((timeslot) => (
-                <TimeSlot timeslot={timeslot} key={timeslot._id} />
-              ))
-            ) : (
-              <p>No meetings for this day.</p>
-            )}
-          </ol>
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : isSuccess ? (
+            <ol className='mt-4 space-y-1 text-sm leading-6 text-gray-500'>
+              {selectedDayTimeSlots.length > 0 ? (
+                selectedDayTimeSlots.map(
+                  (timeslot) => {
+                    if (
+                      // have a meeting with the advisor
+                      data.some(
+                        (appointment) =>
+                          appointment.supervisor === timeslot.supervisor._id
+                      )
+                    ) {
+                      return (
+                        <TimeSlot
+                          timeslot={timeslot}
+                          key={timeslot._id}
+                          id={id}
+                          meeting={true}
+                          appointments={data}
+                        />
+                      )
+                    } else {
+                      return (
+                        <TimeSlot
+                          timeslot={timeslot}
+                          key={timeslot._id}
+                          id={id}
+                          meeting={false}
+                        />
+                      )
+                    }
+                  }
+                  //
+                )
+              ) : (
+                <p>No meetings for this day.</p>
+              )}
+            </ol>
+          ) : null}
         </section>
       </div>
     </div>

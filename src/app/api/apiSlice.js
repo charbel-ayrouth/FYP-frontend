@@ -54,6 +54,7 @@ export const apiSlice = createApi({
     'NewNotification',
     'Overview',
     'Availability',
+    'Appointments',
   ],
   endpoints: (builder) => ({}),
 })

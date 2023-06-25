@@ -12,7 +12,7 @@ const SupervisorCard = ({ supervisor, w }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [message, setMessage] = useState('')
 
-  const MAX_CONNECTIONS = 1
+  const MAX_CONNECTIONS = 5
   const MAX_TOPICS = 4
   const MAX_DOMAINS = 4
 
@@ -45,8 +45,8 @@ const SupervisorCard = ({ supervisor, w }) => {
           </div>
 
           <label
-            for='message'
-            class='mb-2 block text-sm font-medium text-gray-900'
+            htmlFor='message'
+            className='mb-2 block text-sm font-medium text-gray-900'
           >
             Your message
           </label>
@@ -73,7 +73,7 @@ const SupervisorCard = ({ supervisor, w }) => {
         </Modal>
         <div
           className={`${
-            w ? 'p-2 shadow md:w-[360px]' : 'p-4 shadow-md'
+            w ? ' p-2 shadow md:w-[360px]' : 'p-4 shadow-md'
           } mb-4 flex flex-col justify-between rounded-lg border bg-white transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl`}
         >
           <div>
@@ -131,7 +131,7 @@ const SupervisorCard = ({ supervisor, w }) => {
               >
                 Request Sent
               </button>
-            ) : connections.some((request) => request.user === id) ? (
+            ) : connections.indexOf(id) !== -1 ? (
               <button
                 className={`focus:shadow-outline-blue cursor-pointer rounded-full border border-primary bg-white py-2 px-4 font-bold text-primary focus:outline-none`}
                 disabled={true}
@@ -147,7 +147,7 @@ const SupervisorCard = ({ supervisor, w }) => {
                 }`}
                 disabled={
                   connections.length >= MAX_CONNECTIONS ||
-                  connections.some((request) => request.user === id)
+                  connections.indexOf(id) !== -1
                 }
                 onClick={() => setIsOpen(true)}
               >

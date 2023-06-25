@@ -1,13 +1,8 @@
 import React from 'react'
-import { useOverviewQuery } from '../../features/profile/profileApiSlice'
 
-const Overview = ({ id }) => {
-  // const totalStudents = 50
-  // const totalAdvisors = 10
-  // const pendingProposals = 3
-
+const Overview = ({ data, isSuccess }) => {
   let content = null
-  const { data, isLoading, isError, error, isSuccess } = useOverviewQuery(id)
+
   if (isSuccess) {
     content = (
       <div className='rounded-lg bg-white p-6 shadow-lg'>

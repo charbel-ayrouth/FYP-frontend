@@ -8,16 +8,30 @@ import Help from './Help'
 import SelectedTopics from '../../features/topics/Supervisor/SelectedTopics'
 import SelectedDomains from '../../features/domains/Supervisor/SelectedDomains'
 import useAuth from '../../hooks/useAuth'
+import AvailabilityScheduler from './AvailabilityScheduler'
+import { useOverviewQuery } from '../../features/profile/profileApiSlice'
+import LoadingSpinner from '../LoadingSpinner'
 
 const Dashboard = () => {
   const { username, id } = useAuth()
+  const { data, isLoading, isError, error, isSuccess } = useOverviewQuery(id)
 
   return (
     <div className='px-4 xl:px-28'>
-      <h1 className='mb-12 text-3xl font-bold'>Welcome back, {username}</h1>
+      <h1 className='text-3xl font-bold'>Welcome back, {username}</h1>
+      <p className='mt-4 mb-12 text-lg'>
+        Connect with the appropriate project supervisor to kickstart your Final
+        Year Project journey.
+      </p>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : isSuccess ? (
+        data.connections > 0 && <AvailabilityScheduler id={id} />
+      ) : null}
+
       <div className='flex flex-col gap-4 lg:flex-row lg:gap-8'>
         <div className='flex flex-col gap-4'>
-          <Overview id={id} />
+          <Overview data={data} isSuccess={isSuccess} />
 
           <AdvisorDirectory id={id} />
 
@@ -26,7 +40,11 @@ const Dashboard = () => {
           <Settings />
         </div>
         <div className='flex flex-col gap-4'>
-          <Appointments />
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : isSuccess ? (
+            data.connections > 0 && <Appointments />
+          ) : null}
 
           <Notifications id={id} />
 
@@ -35,26 +53,6 @@ const Dashboard = () => {
           <Help />
         </div>
       </div>
-      {/* <div className='grid grid-flow-row-dense gap-4 md:grid-cols-2 lg:grid-cols-3'>
-        <div className='col-span-2 row-span-2'>
-          <Overview />
-        </div>
-        <div className='col-span-2 row-span-2 md:col-span-1'>
-          <Appointments />
-        </div>
-        <div className='col-span-2 row-span-2'>
-          <AdvisorDirectory />
-        </div>
-        <div className='col-span-2 row-span-2 md:col-span-1'>
-          <Notifications />
-        </div>
-        <div className='col-span-2 row-span-2'>
-          <Settings />
-        </div>
-        <div className='col-span-2 row-span-2 md:col-span-1'>
-          <Help />
-        </div>
-      </div> */}
     </div>
   )
 }

@@ -40,6 +40,15 @@ export const availabilityApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Availability'],
     }),
+
+    //Get connected supervisors availability
+    getConnectedSupervisorsAvailability: builder.query({
+      query: ({ studentId }) => {
+        return {
+          url: `/availability/student/${studentId}`,
+        }
+      },
+    }),
   }),
 })
 
@@ -48,4 +57,5 @@ export const {
   useAddAvailabilityMutation,
   useEditAvailabilityMutation,
   useDeleteAvailabilityMutation,
+  useGetConnectedSupervisorsAvailabilityQuery,
 } = availabilityApiSlice

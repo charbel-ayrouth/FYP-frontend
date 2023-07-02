@@ -50,6 +50,7 @@ const SupervisorAvailability = ({ id }) => {
               timeslots={data}
               selectedDay={selectedDay}
               setSelectedDay={setSelectedDay}
+              id={id}
             />
           )
         )}

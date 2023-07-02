@@ -156,37 +156,34 @@ export default function Calendar({
           ) : isSuccess ? (
             <ol className='mt-4 space-y-1 text-sm leading-6 text-gray-500'>
               {selectedDayTimeSlots.length > 0 ? (
-                selectedDayTimeSlots.map(
-                  (timeslot) => {
-                    if (
-                      // have a meeting with the advisor
-                      data.some(
-                        (appointment) =>
-                          appointment.supervisor === timeslot.supervisor._id
-                      )
-                    ) {
-                      return (
-                        <TimeSlot
-                          timeslot={timeslot}
-                          key={timeslot._id}
-                          id={id}
-                          meeting={true}
-                          appointments={data}
-                        />
-                      )
-                    } else {
-                      return (
-                        <TimeSlot
-                          timeslot={timeslot}
-                          key={timeslot._id}
-                          id={id}
-                          meeting={false}
-                        />
-                      )
-                    }
+                selectedDayTimeSlots.map((timeslot) => {
+                  if (
+                    // have a meeting with the advisor
+                    data.some(
+                      (appointment) =>
+                        appointment.supervisor._id === timeslot.supervisor._id
+                    )
+                  ) {
+                    return (
+                      <TimeSlot
+                        timeslot={timeslot}
+                        key={timeslot._id}
+                        id={id}
+                        meeting={true}
+                        appointments={data}
+                      />
+                    )
+                  } else {
+                    return (
+                      <TimeSlot
+                        timeslot={timeslot}
+                        key={timeslot._id}
+                        id={id}
+                        meeting={false}
+                      />
+                    )
                   }
-                  //
-                )
+                })
               ) : (
                 <p>No meetings for this day.</p>
               )}

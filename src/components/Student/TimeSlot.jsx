@@ -1,26 +1,32 @@
 import React, { useState } from 'react'
-import { format, parseISO } from 'date-fns'
+import { format, parseISO, addMinutes } from 'date-fns'
 import { FiX } from 'react-icons/fi'
 import { getInitials } from '../../config/functions'
 import Modal from '../Modal'
 import { useAddAppointmentsMutation } from '../../features/appointments/appointmentsApiSlice'
 import LoadingSpinner from '../LoadingSpinner'
 
-const TimeSlot = ({ timeslot, id, meeting, appointments }) => {
+const TimeSlot = ({ timeslot, id, meeting, appointments = [] }) => {
   let startDateTime = parseISO(timeslot.startTime)
   let endDateTime = parseISO(timeslot.endTime)
+  const intervalInMinutes = 30
 
-  const interval = 30 * 60 * 1000 // 30 minutes in milliseconds
-  const numIntervals = (endDateTime - startDateTime) / interval
+  const [selectedTime, setSelectedTime] = useState('')
 
-  const timeOptions = []
-  for (let i = 0; i <= numIntervals; i++) {
-    const currentTime = new Date(startDateTime.getTime() + i * interval)
-    const timeString = currentTime.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-    })
-    timeOptions.push(timeString)
+  const totalIntervals = Math.ceil(
+    (endDateTime - startDateTime) / (intervalInMinutes * 60 * 1000)
+  )
+
+  const timestamps = []
+  for (let i = 0; i <= totalIntervals; i++) {
+    const timestamp = new Date(
+      startDateTime.getTime() + i * intervalInMinutes * 60 * 1000
+    )
+    timestamps.push(timestamp)
+  }
+
+  const handleTimeChange = (event) => {
+    setSelectedTime(event.target.value)
   }
 
   const [isOpen, setIsOpen] = useState(false)
@@ -29,13 +35,16 @@ const TimeSlot = ({ timeslot, id, meeting, appointments }) => {
     useAddAppointmentsMutation()
 
   const submitHandler = async () => {
+    let start = parseISO(selectedTime, new Date())
+    let end = addMinutes(parseISO(selectedTime, new Date()), 30)
     await addAppointment({
-      startTime: startDateTime,
-      endTime: endDateTime,
+      startTime: start,
+      endTime: end,
       supervisorId: timeslot.supervisor._id,
       userId: id,
     })
     setIsOpen(false)
+    setSelectedTime('')
   }
 
   const filteredAppointments = appointments.filter((appointment) => {
@@ -45,11 +54,12 @@ const TimeSlot = ({ timeslot, id, meeting, appointments }) => {
     const meetingEndTime = new Date(appointment.startTime)
 
     return (
-      meetingStartTime >= availbleStartTime && meetingEndTime <= availbleEndTime
+      meetingStartTime >= availbleStartTime &&
+      meetingEndTime <= availbleEndTime &&
+      appointment.student._id === id &&
+      appointment.supervisor._id === timeslot.supervisor._id
     )
   })
-
-  console.log(filteredAppointments)
 
   return (
     <>
@@ -61,7 +71,10 @@ const TimeSlot = ({ timeslot, id, meeting, appointments }) => {
           <button
             type='button'
             className='inline-flex rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900'
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false)
+              setSelectedTime('')
+            }}
           >
             <FiX />
           </button>
@@ -70,10 +83,21 @@ const TimeSlot = ({ timeslot, id, meeting, appointments }) => {
         <label className='mb-2 block text-sm font-medium text-gray-900'>
           Please choose your time
         </label>
-        <select className='block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-2 focus:border-primaryLight focus:outline-none'>
-          {timeOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
+        <select
+          value={selectedTime}
+          onChange={handleTimeChange}
+          className='rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-2 focus:border-primaryLight focus:outline-none'
+        >
+          <option value=''>Select a time</option>
+          {timestamps.map((timestamp) => (
+            <option
+              key={timestamp.toISOString()}
+              value={timestamp.toISOString()}
+            >
+              {timestamp.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
             </option>
           ))}
         </select>
@@ -121,10 +145,19 @@ const TimeSlot = ({ timeslot, id, meeting, appointments }) => {
         {meeting && (
           <div className='mt-2'>
             {filteredAppointments.map((appointment) => (
-              <p>
-                You have a meeting with {timeslot.supervisor.username} from{' '}
-                {format(parseISO(appointment.startTime), 'h:mm a')} to{' '}
-                {format(parseISO(appointment.endTime), 'h:mm a')}
+              <p key={appointment._id}>
+                You have a meeting with{' '}
+                <span className='font-bold text-black'>
+                  {timeslot.supervisor.username}
+                </span>{' '}
+                from{' '}
+                <span className='font-bold text-black'>
+                  {format(parseISO(appointment.startTime), 'h:mm a')}
+                </span>{' '}
+                to{' '}
+                <span className='font-bold text-black'>
+                  {format(parseISO(appointment.endTime), 'h:mm a')}
+                </span>
               </p>
             ))}
           </div>

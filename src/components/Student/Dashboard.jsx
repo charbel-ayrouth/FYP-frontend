@@ -43,7 +43,7 @@ const Dashboard = () => {
           {isLoading ? (
             <LoadingSpinner />
           ) : isSuccess ? (
-            data.connections > 0 && <Appointments />
+            data.connections > 0 && <Appointments id={id} />
           ) : null}
 
           <Notifications id={id} />

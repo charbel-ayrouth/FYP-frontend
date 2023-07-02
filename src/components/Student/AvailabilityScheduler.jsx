@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { format, parseISO, startOfToday } from 'date-fns'
+import { startOfToday } from 'date-fns'
 import Calendar from './Calendar'
 import { useGetConnectedSupervisorsAvailabilityQuery } from '../../features/availability/availabilityApiSlice'
 import LoadingSpinner from '../LoadingSpinner'

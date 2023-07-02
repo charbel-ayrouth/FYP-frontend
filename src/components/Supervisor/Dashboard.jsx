@@ -32,7 +32,7 @@ const Dashboard = () => {
           <Settings />
         </div>
         <div className='flex flex-col gap-4 lg:w-[30%]'>
-          <Appointments />
+          <Appointments id={id} advisor={true} />
 
           <Notifications id={id} />
 

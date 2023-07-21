@@ -163,6 +163,7 @@ export default function Calendar({
                       data.some(
                         (appointment) =>
                           appointment.supervisor._id === timeslot.supervisor._id
+                        // && isFuture(new Date(appointment.endTime))
                       )
                     ) {
                       return (

@@ -60,6 +60,8 @@ export default function Calendar({
       userId: id,
     })
 
+  console.log('data', data)
+
   return (
     <div className='mx-auto max-w-md px-4 py-2 sm:px-7 md:max-w-5xl md:px-6'>
       <div className='md:grid md:grid-cols-2 md:divide-x md:divide-gray-200'>
@@ -162,8 +164,10 @@ export default function Calendar({
                     data.some(
                       (appointment) =>
                         appointment.supervisor._id === timeslot.supervisor._id
+                      // && isFuture(new Date(appointment.endTime))
                     )
                   ) {
+                    console.log(true)
                     return (
                       <TimeSlot
                         timeslot={timeslot}
@@ -174,6 +178,7 @@ export default function Calendar({
                       />
                     )
                   } else {
+                    console.log(false)
                     return (
                       <TimeSlot
                         timeslot={timeslot}

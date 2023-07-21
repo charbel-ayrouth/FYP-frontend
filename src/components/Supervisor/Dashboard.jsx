@@ -11,7 +11,7 @@ import ConnectionsRequest from './ConnectionsRequest'
 import SupervisorAvailability from './SupervisorAvailability'
 
 const Dashboard = () => {
-  const { username, id } = useAuth()
+  const { username, id, role } = useAuth()
 
   return (
     <div className='px-4 xl:px-28'>
@@ -32,7 +32,7 @@ const Dashboard = () => {
           <Settings />
         </div>
         <div className='flex flex-col gap-4 lg:w-[30%]'>
-          <Appointments id={id} advisor={true} />
+          <Appointments id={id} advisor={true} role={role} />
 
           <Notifications id={id} />
 

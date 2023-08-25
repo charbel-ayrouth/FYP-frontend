@@ -10,7 +10,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: true,
+  devTools: false,
 })
 
 // to add options to the custom hooks created in RTK Query
